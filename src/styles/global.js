@@ -41,10 +41,23 @@ export default createGlobalStyle`
         filter: brightness(0.9);
     }
 
+    input:focus,
+    textarea:focus {
+        outline: none;
+    }
+
     input,
     textarea {
         font-family: "Roboto", sans-serif;
     }
 
+    &::-webkit-scrollbar {
+        width: 5px;        
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: ${({ theme }) => theme.COLORS.TINTS_CAKE_200}; 
+        border-radius: 5px; 
+    }
 
 `;

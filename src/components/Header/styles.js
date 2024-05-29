@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints"
 
 export const Container = styled.header`
     display: flex;
@@ -6,10 +7,11 @@ export const Container = styled.header`
     align-items: center;   
     
     padding: 5.6rem 2.8rem 2.4rem;
+   
 
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_700};
     
-    > button {
+    > .menu {
         display: flex;
         align-items: center;
         background-color: transparent;
@@ -19,9 +21,13 @@ export const Container = styled.header`
             color: ${({ theme }) => theme.COLORS.LIGHT_100};
         }
 
+        @media (min-width: ${DEVICE_BREAKPOINTS.L}) {
+            display: none;
+            border: none;
+        }
     }
     
-    > div {
+    > .wrapper {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -34,7 +40,7 @@ export const Container = styled.header`
 
         h1 {
             color: ${({ theme }) => theme.COLORS.LIGHT_100};
-            font-size: 2.116rem;
+            font-size: 1.8rem;
             font-weight: bold;
         }
 
@@ -42,6 +48,40 @@ export const Container = styled.header`
             display: flex;
             color: ${({ theme }) => theme.COLORS.TINTS_CAKE_100};
             font-size: 1.2rem;
+        }
+    }
+
+    > .ordersNumb {
+        position: relative;
+
+        display: flex;
+
+        &[data-orders-is-available="false"] {
+            display: none;
+        }
+
+        svg {            
+            color: ${({ theme }) => theme.COLORS.LIGHT_100};   
+        }
+
+        span {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: ${({ theme }) => theme.COLORS.TINTS_TOMATO_100};
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 1.1rem;
+
+            font-size: 1.4rem;
+            color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
         }
     }
 `;

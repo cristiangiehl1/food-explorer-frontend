@@ -8,7 +8,7 @@ export function Input({icon: Icon, id, label, ...rest }) {
             </label>
             <div className="input-wrapper">
                 {Icon && <Icon size={20} />}
-                <input id={id} {...rest} />
+                <input id={id} {...rest}></input>
             </div>
         </Container>
     )

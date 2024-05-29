@@ -18,11 +18,13 @@ export const Container = styled.div`
         align-items: center;
         width: 100%;
         
-        border-radius: .8rem;
-
-        padding-left: 1rem;
+        border-radius: .8rem;        
 
         background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_900};
+
+        &:focus-within {
+            outline: 2px solid ${({ theme }) => theme.COLORS.TINTS_CAKE_100};
+        }
 
         input {
             flex: 1;
@@ -38,11 +40,11 @@ export const Container = styled.div`
                 font-family: "Roboto", sans-serif;
                 font-size: 1.4rem;
             }
+        }
 
-            svg {
-                color: ${({ theme }) => theme.COLORS.LIGHT_700};
-                                
-            }
+        svg {
+            color: ${({ theme }) => theme.COLORS.LIGHT_700};
+            padding-left: .5rem;            
         }
     }
 `;

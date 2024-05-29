@@ -3,28 +3,98 @@ import { CiMail } from "react-icons/ci";
 import { IoLockClosed } from "react-icons/io5";
 import { FaPersonHalfDress } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 
 import { Container, Header } from "./styles";
 
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { ButtonNavigate } from "../../components/ButtonNavigate";
+import { UserMesssage } from "../../components/UserMessage";
 
+import { api } from "../../services/api"
 
 
 export function SignUp() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [userMessage, setUserMessage] = useState("");
+  const [bgColor, setBgColor] = useState("");
+
   const navigate = useNavigate();
+
+
+  function handleSignUp() {
+    if(!name || !email || !password || !passwordConfirm) {
+      setUserMessage("Por favor, preencha todos os campos de cadastro.")
+        
+      setTimeout(() => {
+        setUserMessage("");
+        
+      }, 5900);
+
+      return;
+    }  
+
+    api.post("/users", {
+      name, 
+      email,
+      password,
+      passwordConfirm
+    })
+    .then(() => {
+      setUserMessage("Usuário cadastrado com sucesso!")
+      setBgColor("TINTS_CAKE_200")
+
+      setTimeout(() => {
+        setUserMessage("");
+        setBgColor("")
+
+        navigate(-1)
+        
+      }, 1000);
+     
+      
+    })
+    .catch(error => {
+      if(error.response) {
+        setUserMessage(error.response.data.message);
+
+        setTimeout(() => {
+          setUserMessage("");
+          
+        }, 5900);
+
+      } else {
+        setUserMessage("Não foi possível cadastrar.");
+
+        setTimeout(() => {
+          setUserMessage("");
+          
+        }, 5900);
+      }
+    });  
+  }
+
+
+
 
   function handleBack() {
     navigate(-1);
   }
 
+
   return (
-
-
     <Container>
-      <Header>
+
+      <UserMesssage 
+        background ={bgColor}
+        message={userMessage} 
+        isMessage={!!userMessage}
+      />
+      <Header>        
         <BsFillHexagonFill size={40}/>
         <h1>food explorer</h1>
       </Header>
@@ -35,6 +105,7 @@ export function SignUp() {
           type="text"
           id="name"
           label="Seu nome"
+          onChange={event => setName(event.target.value)}
         />
         <Input
           icon={CiMail}
@@ -42,6 +113,7 @@ export function SignUp() {
           type="text"
           id="email"
           label="Email"
+          onChange={event => setEmail(event.target.value)}
         />
       </div>
       <div className="input-wrapper">
@@ -51,6 +123,7 @@ export function SignUp() {
           type="password"
           id="password"
           label="Senha"
+          onChange={event => setPassword(event.target.value)}
         />
         <Input
           icon={IoLockClosed}
@@ -58,14 +131,16 @@ export function SignUp() {
           type="password"
           id="confirmPassword"
           label="Confirme a senha"
+          onChange={event => setPasswordConfirm(event.target.value)}
         />
       </div>
       <Button 
         title="Criar conta"
+        onClick={handleSignUp}
       />   
       <ButtonNavigate 
         title="Já tenho uma conta"
-        onclick={handleBack}
+        onClick={handleBack}
       />
 
     </Container>
