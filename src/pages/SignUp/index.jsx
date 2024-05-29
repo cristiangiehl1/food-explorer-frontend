@@ -26,7 +26,7 @@ export function SignUp() {
   const navigate = useNavigate();
 
 
-  function handleSignUp() {
+  async function handleSignUp() {
     if(!name || !email || !password || !passwordConfirm) {
       setUserMessage("Por favor, preencha todos os campos de cadastro.")
         
@@ -38,7 +38,7 @@ export function SignUp() {
       return;
     }  
 
-    api.post("/users", {
+    await api.post("/users", {
       name, 
       email,
       password,
@@ -54,9 +54,8 @@ export function SignUp() {
 
         navigate(-1)
         
-      }, 1000);
-     
-      
+      }, 1000);    
+
     })
     .catch(error => {
       if(error.response) {

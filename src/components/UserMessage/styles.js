@@ -8,7 +8,7 @@ const animationFadeIn = keyframes`
     }
 
     100% {
-        transform: translateY(-0%);
+        transform: translateY(0%);
     }
 `;
 
@@ -35,7 +35,7 @@ export const Container = styled.div`
     justify-content: center;
 
     width: 100%;
-    height: 4rem;
+    height: 5rem;
 
     background-color: ${({ $background, theme }) => $background ? theme.COLORS[$background] : theme.COLORS.TINTS_TOMATO_100};
 
@@ -50,6 +50,7 @@ export const Container = styled.div`
 
     > span {
         color: ${({ theme }) => theme.COLORS.LIGHT_300};
+        text-align: center;
     }
 
 `;

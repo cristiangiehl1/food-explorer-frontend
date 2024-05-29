@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import { MdOutlineFileUpload } from "react-icons/md";
 
@@ -16,18 +16,16 @@ import { Button } from "../../components/Button";
 import { DisheIngredient } from "../../components/DisheIngredient";
 import { UserMesssage } from "../../components/UserMessage";
 
-import { useAuth } from "../../hooks/auth";
 
-
-export function EditDishe() {
-    const { updateDishe, message } = useAuth();
-
-    const [id, setId] = useState("");
+export function New() {  
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [categories, setCategories] = useState("");
     const [isMostOrdered, setIsMostOrdered] = useState("");
+
+    const [message, setMessage] = useState();
+    const [bgColor, setBgColor] = useState();
     
     const [disheImgFile, setDisheImgFile] = useState(null);
 
@@ -37,29 +35,20 @@ export function EditDishe() {
     const [menuIsOpen, setMenuIsOpen] = useState();
 
     const navigate = useNavigate();
-    const params = useParams();   
-
-    async function handleUpdate(event) {
-        event.preventDefault();
-        
-        const dishe = {
-            id,
-            name,
-            price,
-            description,
-            categories,
-            ingredients,
-            most_ordered: isMostOrdered            
-        }
-
-        await updateDishe({ dishe, disheImgFile });
-    }
 
     async function handleChangeDisheImg(event) {
         const file = event.target.files[0];        
         setDisheImgFile(file);
     }
-   
+
+    function userMessage(message) {
+        setMessage(message)
+        
+        setTimeout(() => {
+            setMessage("");
+          
+        }, 5900);  
+    }    
     
     function handleAddIngredient() {
         setIngredients(prevState => [...prevState, newIngredient]);
@@ -68,6 +57,69 @@ export function EditDishe() {
 
     function handleRemoveIngredient(deleted) {
         setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
+    }
+
+    async function handleCreateDishe(event) {
+        event.preventDefault();
+
+        let responseData;
+        
+        if(!name || !price || !categories || !description || !ingredients) {
+           userMessage("Por favor, preencha todos os campos obrigatórios.")
+           return
+        }
+
+        if(newIngredient) {
+            userMessage("Você deixou um ingrediente para adicionar, mas não adicionou.")
+            return
+        }
+
+        try {
+            const response = await api.post("/dishes", {
+                name,
+                description,
+                price,
+                ingredients,
+                categories,
+                most_ordered: isMostOrdered
+            });
+    
+            responseData = response.data; 
+      
+    
+            setMessage("Prato cadastrado com sucesso");
+            setBgColor("TINTS_CAKE_200");
+    
+            setTimeout(() => {
+                setMessage("");
+                setBgColor("");
+            }, 5900);
+        } catch (error) {
+            if (error.response) {
+                userMessage(error.response.data.message);
+
+            } else {
+                userMessage("Não foi possível cadastrar.");
+            }
+        }
+
+        if(disheImgFile && responseData !== undefined) {
+            try {                
+                const fileUploadForm = new FormData();
+                fileUploadForm.append("image", disheImgFile);
+
+                await api.patch(`/dishes/image/${responseData}`, fileUploadForm); 
+
+            } catch (error) {
+                await api.delete(`/dishes/${responseData}`)
+                if (error.response) {
+                    userMessage(error.response.data.message);
+    
+                } else {
+                    userMessage("Não foi possível cadastrar.");
+                }
+            }
+        }
     }
 
     function handleCheckbox() {
@@ -82,37 +134,14 @@ export function EditDishe() {
         navigate("/")
     }
 
-
-    useEffect(() => {
-        async function fetchDishe() {
-            const disheWithIngredients = await api.get(`/dishes/${params.id}`);           
-            const disheInfo = disheWithIngredients.data;
-
-            const disheWithCategories = await api.get(`/categories`)
-            const categoriesInfo = disheWithCategories.data;         
-
-            const filtredCategory = categoriesInfo.filter(category => {
-                return category.id === parseInt(params.id)
-            })   
-            
-            const ingredients = disheInfo.ingredients.map(dishe => {
-                return dishe.ingredient
-            })      
-
-            setId(disheInfo.id)
-            setName(disheInfo.name);
-            setDescription(disheInfo.description);      
-            setPrice(disheInfo.price);            
-            setCategories(filtredCategory[0].categories[0].type);         
-            setIsMostOrdered(filtredCategory[0].categories[0].most_ordered);   
-            setIngredients(ingredients);     
-        }
-        fetchDishe();
+    useEffect(() => {            
+   
     }, [])
 
     return(
         <Container>
-            <UserMesssage                     
+            <UserMesssage   
+                background={bgColor}                  
                 message={message} 
                 isMessage={!!message}
             />
@@ -131,7 +160,7 @@ export function EditDishe() {
                         <span>Voltar</span>
                     </button>  
                     <form>
-                        <h1>Editar Prato</h1>
+                        <h1>Novo Prato</h1>
                         <div>
                             <label htmlFor="fileUpload">Imagem do prato</label>
                             <div className="custom-file-upload">
@@ -147,7 +176,7 @@ export function EditDishe() {
                         <Input 
                             label="Nome"
                             type="text"
-                            placeholder={name && name || "Salada Cesar"}
+                            placeholder="Ex.: Frango à parmegiana"
                             id="name"
                             onChange={(e) => setName(e.target.value)}
                         />
@@ -156,10 +185,10 @@ export function EditDishe() {
                             <select 
                                 className="input-category" 
                                 id="category" 
-                                name="category" 
-                                value={categories}
+                                name="category"                                 
                                 onChange={(e) => setCategories(e.target.value)}
                             >
+                                <option value="">Selecione uma opção</option>
                                 <option value="bebida">bebida</option>
                                 <option value="refeição">refeição</option>                               
                                 <option value="sobremesa">sobremesa</option>
@@ -188,40 +217,33 @@ export function EditDishe() {
                                     />
                                    ))
                                 }
-                                    <DisheIngredient
-                                        isNew
-                                        value={newIngredient}
-                                        placeholder="Adicionar"
-                                        onChange={e => setNewIngredient(e.target.value)}
-                                        onClick={handleAddIngredient}
-                                        />
+                                <DisheIngredient
+                                    isNew
+                                    value={newIngredient}
+                                    placeholder="Adicionar"
+                                    onChange={e => setNewIngredient(e.target.value)}
+                                    onClick={handleAddIngredient}
+                                    />
                             </section>
                         </div>
                         <Input 
                             label="Preço"
                             type="text"
-                            placeholder={price && `R$ ${price}` || "R$ 40,00"}
+                            placeholder="Ex.: R$ 80,00"
                             id="price"
                             onChange={(e) => setPrice(e.target.value)}
                         />
                         <Textarea 
                             label="Descrição"
                             id="description"
-                            placeholder={description && description || "A salada César é uma opção maravilhosa"}
+                            placeholder="Ex.: esse é simplemente o melhor prato da porra do mundo"
                             onChange={(e) => setDescription(e.target.value)}
                         />
-
-                        <div className="buttons-wrapper">
-                            <Button 
-                                title="Excluir nota"
-                                color="BACKGROUND_DARK_900"
-                            />
-                            <Button 
-                                title="Salvar alterações"
-                                color="TINTS_TOMATO_400"
-                                onClick={handleUpdate}
-                            />                            
-                        </div>
+                        <Button 
+                            title="Salvar alterações"
+                            color="TINTS_TOMATO_400"
+                            onClick={handleCreateDishe}
+                        />                           
                     </form>
                 </main>
                 <Footer />

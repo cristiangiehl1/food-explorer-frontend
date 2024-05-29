@@ -36,6 +36,10 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
         signOut();
     }
 
+    function handleNew() {
+        navigate("/dishes");
+    }
+
     function formatPrice(price) {
         const formattedPrice = parseFloat(price).toFixed(2);
         return formattedPrice.replace('.', ',');
@@ -102,7 +106,7 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
                     } 
                 </aside>
                 <section>
-                    <span>Novo prato</span>
+                    <button onClick={handleNew}>Novo prato</button>
                 </section>
                 <section>
                     <button onClick={handleSignOut}>Sair</button>
