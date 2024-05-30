@@ -117,13 +117,9 @@ export const Container = styled.aside`
             border-top: 2px solid rgba(6, 94, 124, 0.3); 
             
             &:nth-of-type(1) {
-                margin-top: 3rem;
+                margin-top: 1rem;
             }
-
-            &:nth-of-type(2) {
-                margin-top: 2rem;
-            }
-
+            
             span {
                 color: ${({ theme }) => theme.COLORS.LIGHT_300};
                 font-size: 2.2rem;          

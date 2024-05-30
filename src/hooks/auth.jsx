@@ -83,8 +83,6 @@ function AuthProvider({ children }) {
         }
     }
 
-
-
     useEffect(() => {
         const user = localStorage.getItem("@foodexpress:user");  
 

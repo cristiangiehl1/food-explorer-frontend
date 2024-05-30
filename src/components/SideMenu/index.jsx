@@ -6,12 +6,14 @@ import { Container } from "./styles";
 
 import { Input } from "../Input"
 import { Footer } from "../Footer";
-import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "../../hooks/auth";
+import { USER_ROLE } from "../../utils/roles";
+
 export function SideMenu({ menuIsOpen, onCloseMenu}) {
-    const { signOut } = useAuth();
+    const { signOut, user } = useAuth();
 
     const [disheName, setDisheName] = useState("");
     const [ingredientName, setIngredientName] = useState("");
@@ -31,6 +33,10 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
         }, 100);
     }
 
+    function handleProfile() {
+        navigate("/users");       
+    }
+
     function handleSignOut() {
         navigate("/");
         signOut();
@@ -48,7 +54,6 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
     async function handleNavDetails(id) {
         navigate(`/details/${id}`);
         onCloseMenu();
-
     }
 
     useEffect(() => {
@@ -106,8 +111,15 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
                     } 
                 </aside>
                 <section>
-                    <button onClick={handleNew}>Novo prato</button>
+                    <button onClick={handleProfile}>Meu perfil</button>
                 </section>
+                {
+                    [USER_ROLE.ADMIN].includes(user.role) &&
+                    <section>
+                        <button onClick={handleNew}>Novo prato</button>
+                    </section>                   
+                }
+
                 <section>
                     <button onClick={handleSignOut}>Sair</button>
                 </section>

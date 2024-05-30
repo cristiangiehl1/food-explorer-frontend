@@ -94,16 +94,52 @@ export const Container = styled.div`
                     }
 
                 }
+
+
             }
         }
 
         > footer {
             margin-top: 2.4rem;
         }
+    }  
+    
+    .customerOnly {        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.6rem;
+    }
 
-
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .6rem;
+        
+        
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        font-size: 1.3rem;
 
     }
 
-    
+    .disheAddSubtract {
+        width: 50%;
+        display: flex; 
+        align-items:  center;
+        justify-content: center;
+        gap: 1.5rem;
+
+        button {
+           
+            background-color: transparent;
+            border: none;            
+        }
+
+        span {
+            font-family: "Roboto", sans-serif;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    }
 `;

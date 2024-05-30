@@ -7,13 +7,16 @@ import GlobalStyles from './styles/global.js';
 
 import { Routes } from './routes';
 import { AuthProvider } from './hooks/auth';
+import { OrderProvider } from './hooks/clientOrder.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme} >
       <GlobalStyles />
       <AuthProvider>
-          <Routes />
+          <OrderProvider>
+            <Routes />
+          </OrderProvider> 
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>,

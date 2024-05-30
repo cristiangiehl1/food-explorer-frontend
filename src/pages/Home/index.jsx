@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import { Container } from "./styles";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -8,12 +6,14 @@ import { Dishe } from "../../components/Dishe";
 import { SideMenu } from "../../components/SideMenu";
 import { useEffect, useState } from "react";
 
-import homeImg from "../../assets/dishes/homeimg.png"
+import homeImg from "../../assets/dishes/homeimg.png";
 
 import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
 
 
 export function Home() {
+    const { user } = useAuth();
     
     const [searchDishe, setSearchDishe] = useState("");
     const [searchIngredient, setSearchIngredient] = useState("");
@@ -26,12 +26,6 @@ export function Home() {
     const [dishes, setDishes] = useState([]); 
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
-
-    const navigate = useNavigate();
-
-    async function handleDetails(id) {
-        navigate(`/details/${id}`)
-    }
     
     useEffect(() => {
         async function dishesWithCategoriesDB() {
@@ -89,7 +83,7 @@ export function Home() {
                             <Dishe
                                 key={String(dishe.id)}
                                 data={dishe}
-                                navDetails={() => handleDetails(dishe.id)}
+                                
                             />
                             ))
                         }
@@ -102,7 +96,7 @@ export function Home() {
                             <Dishe
                                 key={String(dishe.id)}
                                 data={dishe}
-                                navDetails={() => handleDetails(dishe.id)}
+                               
                             />
                             ))
                         }
@@ -115,7 +109,6 @@ export function Home() {
                             <Dishe
                                 key={String(dishe.id)}
                                 data={dishe}
-                                navDetails={() => handleDetails(dishe.id)}
                             />
                             ))
                         }
@@ -127,9 +120,7 @@ export function Home() {
                             desserts.map(dishe => (
                             <Dishe
                                 key={String(dishe.id)}
-                                data={dishe}
-                                navDetails={() => handleDetails(dishe.id)}
-                
+                                data={dishe}                
                             />
                             ))
                         }
@@ -141,9 +132,7 @@ export function Home() {
                             drinks.map(dishe => (
                             <Dishe
                                 key={String(dishe.id)}
-                                data={dishe}
-                                navDetails={() => handleDetails(dishe.id)}
-                
+                                data={dishe}                
                             />
                             ))
                         }

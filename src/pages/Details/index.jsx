@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { PiNewspaperClipping } from "react-icons/pi";
+
 
 import { FaChevronLeft } from "react-icons/fa";
-
 
 import { api } from "../../services/api";
 
@@ -13,18 +15,45 @@ import { Button } from "../../components/Button";
 import { SideMenu } from "../../components/SideMenu";
 import dishePlaceholder from "../../assets/dishes/dishePlaceholder.jpg"
 
+import { USER_ROLE } from "../../utils/roles";
+import { useAuth } from "../../hooks/auth";
 
 
 export function Details() {
+
+    const { user } = useAuth();
     
     const [data, setData] = useState(null);
     const [menuIsOpen, setMenuIsOpen] = useState(false);
-
+    const [disheQuantity, setDisheQuantity] = useState(1);
 
     const params = useParams();
     const navigate = useNavigate();
 
     const disheURL = data && data.image ? `${api.defaults.baseURL}/files/dishes/${data.image}` : dishePlaceholder; 
+
+    function addLeadingZero(number) {
+        return number < 10 ? `0${number}` : number;
+    }
+
+    function handleDisheIncrease() {
+        const quantity = disheQuantity + 1;
+
+        setDisheQuantity(quantity);
+    }
+
+    function handleDisheDecrease() {
+        if(disheQuantity <= 1){
+            return
+        }
+        const quantity = disheQuantity - 1;
+
+        setDisheQuantity(quantity);
+    }
+
+    function priceCorrection(price){
+        return price.toFixed(2).replace(".", ",");
+    }
 
     function handleBack() {
         navigate("/");
@@ -35,10 +64,10 @@ export function Details() {
     }
 
     useEffect(() => {
-        async function fetchDishe() {
-            const response = await api.get(`/dishes/${params.id}`)
+        async function fetchDishe() {                       
+            const response = await api.get(`/dishes/${params.id}`);
             
-            setData(response.data)
+            setData(response.data);
         }
         fetchDishe();
     }, [data])
@@ -75,10 +104,28 @@ export function Details() {
                                 </div>
                             </figcaption>
                         </figure>
-                        <Button
-                            title="Editar prato"
-                            onClick={handleEditNav}
-                        />
+                        {  [USER_ROLE.ADMIN].includes(user.role) &&                      
+                            <Button
+                                title="Editar prato"
+                                onClick={handleEditNav}
+                            />
+                        }
+                        {  [USER_ROLE.CUSTOMER].includes(user.role) &&                      
+                            
+                            <div className="customerOnly">
+                                <div className="disheAddSubtract">
+                                    <button><FaPlus onClick={() => handleDisheIncrease()}  size={15}/></button>
+                                    <span>{addLeadingZero(disheQuantity)}</span>
+                                    <button><FaMinus onClick={() => handleDisheDecrease()} size={15}/></button>
+                                </div>
+                                <Button
+                                    title={`Pedir - R$ ${priceCorrection(data.price * disheQuantity)}`}
+                                    onClick={() => {}}
+                                    icon={PiNewspaperClipping}
+                                    color="TINTS_TOMATO_100"
+                                />
+                            </div>
+                        }
                     </main>
                 }
                 <Footer />
