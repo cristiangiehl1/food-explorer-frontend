@@ -20,12 +20,14 @@ import { useAuth } from "../../hooks/auth";
 
 
 export function Details() {
-
     const { user } = useAuth();
     
     const [data, setData] = useState(null);
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const [disheQuantity, setDisheQuantity] = useState(1);
+
+    const [cart, setCart] = useState([]);
+
 
     const params = useParams();
     const navigate = useNavigate();
@@ -65,12 +67,40 @@ export function Details() {
 
     useEffect(() => {
         async function fetchDishe() {                       
-            const response = await api.get(`/dishes/${params.id}`);
-            
-            setData(response.data);
+            const response = await api.get(`/dishes/${params.id}`);            
+            setData(response.data);     
+
         }
         fetchDishe();
     }, [data])
+
+    function cartToLocalStorage(data, quantity) {
+        const newCart = [...cart];
+
+        // Adicione os itens ao carrinho
+        for (let i = 0; i < quantity; i++) {
+            newCart.push(data);
+        }
+        setCart(newCart);
+        setDisheQuantity(1);
+    }
+
+
+    useEffect(() => {
+        const cartFromLocalStorage = localStorage.getItem("@foodexpress:cart");
+
+        if(cartFromLocalStorage) {            
+            setCart(JSON.parse(cartFromLocalStorage))
+        }  
+    }, []);
+
+    useEffect(() => {
+        if(cart.length > 0) {
+            localStorage.setItem("@foodexpress:cart", JSON.stringify(cart))
+        }
+    
+    }, [cart]);
+
 
     return(
         <Container>
@@ -79,7 +109,7 @@ export function Details() {
                 onCloseMenu={() => setMenuIsOpen(false)}    
             />
             <div className="content"  data-hide-details={menuIsOpen}>
-                <Header onOpenMenu={() => setMenuIsOpen(true)}/>
+                <Header onOpenMenu={() => setMenuIsOpen(true)} quantity={cart.length}/>
                 {
                     data &&
                     <main>
@@ -120,7 +150,7 @@ export function Details() {
                                 </div>
                                 <Button
                                     title={`Pedir - R$ ${priceCorrection(data.price * disheQuantity)}`}
-                                    onClick={() => {}}
+                                    onClick={() => cartToLocalStorage(data, disheQuantity)}
                                     icon={PiNewspaperClipping}
                                     color="TINTS_TOMATO_100"
                                 />

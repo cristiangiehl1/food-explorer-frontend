@@ -11,18 +11,16 @@ import { api } from "../../services/api";
 import dishePlaceholder from "../../assets/dishes/dishePlaceholder.jpg";
 
 import { useAuth } from "../../hooks/auth";
-import { useOrder } from "../../hooks/clientOrder";
+import { useCart } from "../../hooks/clientcart";
 import { USER_ROLE } from "../../utils/roles";
 import { useEffect, useState } from "react";
 
-export function Dishe({data, ...rest}) {
+export function Dishe({ data, fetchCart, ...rest }) {
     const { user } = useAuth();
-    const { order, setOrder } = useOrder();
+    const { quantity, setQuantity } = useCart();
 
     const [isFavorite, setIsFavorite] = useState("");
     const [disheQuantity, setDisheQuantity] = useState(1);
-
-    const [storedItens, setStoredItens] = useState({}) 
 
     const avatarUrl = data.image ? `${api.defaults.baseURL}/files/dishes/${data.image}` : dishePlaceholder; 
     const navigate = useNavigate();
@@ -51,41 +49,31 @@ export function Dishe({data, ...rest}) {
         })
     }
 
-    function handleDisheIncrease() {
-        const quantity = disheQuantity + 1;
+    function addLeadingZero(number) {
+        return number < 10 ? `0${number}` : number;
+    }    
 
-        setDisheQuantity(quantity);
+    function editPrice(price) {
+        return price.toFixed(2).replace(".", ",");
+    }
+
+    function handleDisheIncrease() {
+        const qtdDishe = disheQuantity + 1
+        
+        setDisheQuantity(prevState => prevState + 1);          
+
+        setQuantity(qtdDishe);       
     }
 
     function handleDisheDecrease() {
         if(disheQuantity <= 1){
             return
         }
-        const quantity = disheQuantity - 1;
+        const qtdDishe = disheQuantity - 1
+        setDisheQuantity(prevState => prevState - 1);        
+        setQuantity(qtdDishe);
 
-        setDisheQuantity(quantity);
     }
-
-
-    function addLeadingZero(number) {
-        return number < 10 ? `0${number}` : number;
-    }
-    
-
-    function editPrice(price) {
-        return price.toFixed(2).replace(".", ",");
-    }
-
-    useEffect(() => {
-        const orders = localStorage.getItem("@foodexpress:order");  
-
-        if(orders) {
-            setStoredItens({                
-                orders: JSON.parse(orders)
-            });
-        }        
-    }, []);
-
 
     useEffect(() => {
         async function fetchCategories() {
@@ -96,6 +84,16 @@ export function Dishe({data, ...rest}) {
         }
         fetchCategories();
     }, [])
+
+
+    useEffect(() => {
+        if(quantity === 1) {
+            setDisheQuantity(1);
+        }
+    }, [quantity]);
+
+
+
 
     return (
         <Container {...rest}>
@@ -132,7 +130,7 @@ export function Dishe({data, ...rest}) {
                     <Button 
                         title="Incluir"
                         color="TINTS_TOMATO_100"
-                        onClick={() => {}}
+                        onClick={fetchCart}
                     />                     
                 </div>
             </figure>

@@ -40,30 +40,33 @@ export function SignIn() {
         <BsFillHexagonFill size={40}/>
         <h1>food explorer</h1>
       </Header>
-      <Input
-        icon={CiMail}
-        placeholder="Exemplo: exemplo@exemplo.com.br"
-        type="text"
-        id="email"
-        label="Email"
-        onChange={event => setEmail(event.target.value)}        
-      />
-      <Input
-        icon={IoLockClosed}
-        placeholder="No mínimo 6 caracteres"
-        type="password"
-        id="password"
-        label="Senha"
-        onChange={event => setPassword(event.target.value)}       
-      />
-      <Button 
-        title="Entrar"
-        onClick={handleSignIn}
-      />
-      <ButtonNavigate 
-        title="Criar uma conta"
-        onClick={handleNavigation}
-      />   
+      <main>
+        <h2>Faça Login</h2>
+        <Input
+          icon={CiMail}
+          placeholder="Exemplo: exemplo@exemplo.com.br"
+          type="text"
+          id="email"
+          label="Email"
+          onChange={event => setEmail(event.target.value)}
+        />
+        <Input
+          icon={IoLockClosed}
+          placeholder="No mínimo 6 caracteres"
+          type="password"
+          id="password"
+          label="Senha"
+          onChange={event => setPassword(event.target.value)}
+        />
+        <Button
+          title="Entrar"
+          onClick={handleSignIn}
+        />
+        <ButtonNavigate
+          title="Criar uma conta"
+          onClick={handleNavigation}
+        />
+      </main>
     </Container>
   )
 }

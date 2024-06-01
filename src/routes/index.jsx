@@ -6,7 +6,6 @@ import { AdminRoutes } from "./admin.routes";
 import { CustomerRoutes } from "./customer.routes";
 
 import { useAuth } from "../hooks/auth"
-import { useOrder } from "../hooks/clientOrder"
 import { api } from "../services/api";
 import { USER_ROLE } from "../utils/roles"
 

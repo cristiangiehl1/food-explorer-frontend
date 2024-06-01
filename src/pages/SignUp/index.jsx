@@ -97,50 +97,53 @@ export function SignUp() {
         <BsFillHexagonFill size={40}/>
         <h1>food explorer</h1>
       </Header>
-      <div className="input-wrapper">
-        <Input
-          icon={FaPersonHalfDress}
-          placeholder="Exemplo: Maria da Silva"
-          type="text"
-          id="name"
-          label="Seu nome"
-          onChange={event => setName(event.target.value)}
+      <main>
+        <h2>Crie sua conta</h2>
+        <div className="input-wrapper">
+          <Input
+            icon={FaPersonHalfDress}
+            placeholder="Exemplo: Maria da Silva"
+            type="text"
+            id="name"
+            label="Seu nome"
+            onChange={event => setName(event.target.value)}
+          />
+          <Input
+            icon={CiMail}
+            placeholder="Exemplo: exemplo@exemplo.com.br"
+            type="text"
+            id="email"
+            label="Email"
+            onChange={event => setEmail(event.target.value)}
+          />
+        </div>
+        <div className="input-wrapper">
+          <Input
+            icon={IoLockClosed}
+            placeholder="No mínimo 6 caracteres"
+            type="password"
+            id="password"
+            label="Senha"
+            onChange={event => setPassword(event.target.value)}
+          />
+          <Input
+            icon={IoLockClosed}
+            placeholder="Mesma senha da anterior"
+            type="password"
+            id="confirmPassword"
+            label="Confirme a senha"
+            onChange={event => setPasswordConfirm(event.target.value)}
+          />
+        </div>
+        <Button
+          title="Criar conta"
+          onClick={handleSignUp}
         />
-        <Input
-          icon={CiMail}
-          placeholder="Exemplo: exemplo@exemplo.com.br"
-          type="text"
-          id="email"
-          label="Email"
-          onChange={event => setEmail(event.target.value)}
+        <ButtonNavigate
+          title="Já tenho uma conta"
+          onClick={handleBack}
         />
-      </div>
-      <div className="input-wrapper">
-        <Input
-          icon={IoLockClosed}
-          placeholder="No mínimo 6 caracteres"
-          type="password"
-          id="password"
-          label="Senha"
-          onChange={event => setPassword(event.target.value)}
-        />
-        <Input
-          icon={IoLockClosed}
-          placeholder="Mesma senha da anterior"
-          type="password"
-          id="confirmPassword"
-          label="Confirme a senha"
-          onChange={event => setPasswordConfirm(event.target.value)}
-        />
-      </div>
-      <Button 
-        title="Criar conta"
-        onClick={handleSignUp}
-      />   
-      <ButtonNavigate 
-        title="Já tenho uma conta"
-        onClick={handleBack}
-      />
+      </main>
 
     </Container>
   )

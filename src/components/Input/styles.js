@@ -7,10 +7,18 @@ export const Container = styled.div`
     flex-direction: column;
     gap: .8rem;
 
+    @media(min-width: 1024px) {
+        font-size: 1.6rem;
+    }
+
     > label {
         font-family: "Roboto", sans-serif;
         font-size: 1.4rem;
-        color: ${({ theme }) => theme.COLORS.LIGHT_400};        
+        color: ${({ theme }) => theme.COLORS.LIGHT_400};   
+        
+        @media(min-width: 1024px) {
+            font-size: 1.6rem;
+        }
     }
 
     > .input-wrapper {
@@ -34,17 +42,27 @@ export const Container = styled.div`
             
             color: ${({ theme }) => theme.COLORS.LIGHT_400};
             font-size: 1.4rem;
+
+            @media(min-width: 1024px) {
+                    font-size: 1.6rem;
+            }
         
             &::placeholder {
                 color: ${({ theme }) => theme.COLORS.LIGHT_700};
                 font-family: "Roboto", sans-serif;
                 font-size: 1.4rem;
+
+                @media(min-width: 1024px) {
+                    font-size: 1.6rem;
+                }
             }
         }
 
         svg {
             color: ${({ theme }) => theme.COLORS.LIGHT_700};
-            padding-left: .5rem;            
+            margin-left: 1rem;   
+            
+            
         }
     }
 `;

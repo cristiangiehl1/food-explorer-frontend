@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     position: relative;  
     z-index: 0;
+    width: 20rem;
    
 
     > figure {
@@ -31,8 +32,8 @@ export const Container = styled.div`
         justify-content: center;
 
             img {
-                width: 8.8rem; 
-                height: 8.8rem;
+                width: 10rem; 
+                height: 10rem;
             }
 
             .figure-content {
@@ -51,15 +52,25 @@ export const Container = styled.div`
                 position: relative;
 
                 h2 {
-                    font-size: 1.5rem;
-                    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     
-                    margin: 1.2rem 0;
+                    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+                    font-size: 1.5rem;
+                    text-align: center;
+                    
+                    margin: .8rem 0;
+                    height: 5rem;
+
+                    @media(min-width: 375px) {
+                        font-size: 1.2rem;                       
+                    }
                 }
 
                 svg {
                     position: absolute;
-                    right: -12px;
+                    right: -12px;                    
                     color: ${({ theme }) => theme.COLORS.LIGHT_300};
                 }
             }

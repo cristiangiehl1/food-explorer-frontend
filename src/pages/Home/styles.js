@@ -20,12 +20,22 @@ export const Container = styled.div`
         margin: 4.4rem 3rem 6.2rem 3rem;
         padding: 2.2rem 2.1rem 2.2rem 12.5rem;
 
+        @media(min-width: 768px) {           
+            padding: 4rem 2.1rem 4rem 20rem;
+            margin: 8rem 3rem 6.2rem 3rem;
+        }
+
         img {
             position: absolute;
             bottom: 0;
             left: 0;
 
             width: 12rem;
+
+
+            @media(min-width: 768px) {
+                width: 20rem;
+            }
         }
 
         figcaption {
@@ -36,12 +46,20 @@ export const Container = styled.div`
 
             h2 {
                 font-size: 1.4rem;
-
+                font-weight: 500;
                 margin-bottom: .3rem;
+
+                @media(min-width: 768px) {           
+                    font-size: 2rem;
+                }
             }
 
             p {
                 font-size: .7rem;
+
+                @media(min-width: 768px) {           
+                    font-size: 1.2rem;
+                }
             }
         }
 

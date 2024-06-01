@@ -7,7 +7,7 @@ export const Container = styled.button`
     
     border: none;
     border-radius: .5rem;
-    background-color: ${({ theme, color }) => color ? theme.COLORS[color] : theme.COLORS.TINTS_TOMATO_300};
+    background-color: ${({ theme, color }) => color ? theme.COLORS[color] : theme.COLORS.TINTS_TOMATO_100};
 
     padding: 1.2rem 0;
 

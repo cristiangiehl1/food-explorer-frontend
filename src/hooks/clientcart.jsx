@@ -3,20 +3,20 @@ import { createContext, useContext, useState } from "react";
 const OrderContext = createContext({});
 
 
-function OrderProvider({ children }) {
-    const [order, setOrder] = useState([]);
+function CartProvider({ children }) {
+    const [quantity, setQuantity] = useState(1);
 
     return (
-        <OrderContext.Provider value={{ order, setOrder}}>
+        <OrderContext.Provider value={{ quantity, setQuantity }}>
             {children}
         </OrderContext.Provider>
     )
 }
 
-function useOrder() {
+function useCart() {
     const context = useContext(OrderContext);
 
     return context;
 }
 
-export { OrderProvider, useOrder };
+export { CartProvider, useCart };
