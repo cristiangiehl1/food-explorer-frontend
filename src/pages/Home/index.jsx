@@ -17,9 +17,6 @@ export function Home() {
     const { user } = useAuth();
     const { quantity, setQuantity } = useCart();
     
-    const [searchDishe, setSearchDishe] = useState("");
-    const [searchIngredient, setSearchIngredient] = useState("");
-    
     const [mostRequested, setMostRequested] = useState("");
     const [meals, setMeals] = useState("");
     const [desserts, setDesserts] = useState("");
@@ -101,9 +98,9 @@ export function Home() {
             />
             <div className="content" data-hide-home={!menuIsOpen}> 
                 <Header onOpenMenu={() => setMenuIsOpen(true)} quantity={cart.length}/>
-                <figure>
+                <figure className="figureTitle">
                     <img src={homeImg} alt="imagem de macarons coloridos" />
-                    <figcaption>
+                    <figcaption className="pageTitle">
                         <h2>Sabores inigualáveis</h2>
                         <p>Sinta o cuidado do preparo com ingredientes selecionados.</p>
                     </figcaption>

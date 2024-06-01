@@ -1,10 +1,11 @@
-import { BsFillHexagonFill } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiNewspaperClipping } from "react-icons/pi";
 import { IoIosSearch } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 
-import { Container } from "./styles";
+import { Container,
+    StyledBsFillHexagonFill
+ } from "./styles";
 import { Input } from "../Input"
 
 import { useAuth } from "../../hooks/auth";
@@ -49,6 +50,10 @@ export function Header({ onOpenMenu, quantity }) {
     function handleSignOut() {
         signOut();
         navigate("/");
+    }
+
+    function handleNew() {
+        navigate("/dishes");
     }
 
     // const [cartOrders, setCartOrders] = useState();
@@ -97,7 +102,7 @@ export function Header({ onOpenMenu, quantity }) {
                 <RxHamburgerMenu size={30}/>
             </button>
             <div className="wrapper">
-                <BsFillHexagonFill size={30}/>
+                <StyledBsFillHexagonFill/>
                 <div>
                     <h1>food explorer</h1>
                     {
@@ -121,7 +126,7 @@ export function Header({ onOpenMenu, quantity }) {
                             key={String(dishe.id)}
                             onClick={() => {handleNavDetails(dishe.id)}}
                         >
-                            <div>
+                            <div className="img-wrapper">
                                 <img src={dishe.image ? `${api.defaults.baseURL}/files/dishes/${dishe.image}` : dishePlaceholder} alt="" />
                                 <span>{dishe.name}</span>
                             </div>
@@ -142,14 +147,25 @@ export function Header({ onOpenMenu, quantity }) {
                             }
                         </button>
                     </div>
+                    { [USER_ROLE.CUSTOMER].includes(user.role) &&                  
                     <button className="largeScreenBtn">
                         <PiNewspaperClipping size={30}/>
                         {
                             `Pedidos (${quantity})`
                         }
                     </button>
+                    }         
                 </div>
             }
+            { [USER_ROLE.ADMIN].includes(user.role) &&                  
+                <div>
+                    <button className="adminBtn" onClick={handleNew}>
+                        { `Novo prato` }
+                    </button>
+                </div>
+            }      
+               
+
             <button className="logout" onClick={() => handleSignOut()}>
                 <MdLogout size={30}/>
             </button>

@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints"
+import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints";
+import { BsFillHexagonFill } from "react-icons/bs";
+
 
 export const Container = styled.header`
     display: flex;
     flex-direction: row;
-    align-items: center;   
+    align-items: center; 
+    justify-content: space-between;  
     gap: 3.2rem;  
     
     padding: 5.6rem 2.8rem 2.4rem;  
@@ -14,7 +17,13 @@ export const Container = styled.header`
     @media (min-width: 1024px) {
         display: grid;
         grid-template-columns: max-content 1fr max-content max-content;
-    }       
+    }   
+    
+    button {
+        border: none;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+    }
 
     > .menu {
         display: flex;
@@ -33,11 +42,14 @@ export const Container = styled.header`
     }
     
     > .wrapper {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
+        display: flex;        
+        
         gap: .8rem;
-        flex: 1;
+       
+
+        @media (max-width: 321px) {
+            align-items : center;                   
+        }   
         
         svg {
             color: ${({ theme }) => theme.COLORS.TINTS_CAKE_200};          
@@ -45,17 +57,34 @@ export const Container = styled.header`
         
         div {
             display: flex;
-            flex-direction: column;
-            align-items : flex-end;
+            flex-direction: row; 
+            gap: .5rem;
+            align-items: center;  
+            
+            @media (min-width: 1024px) {
+                flex-direction: column;
+                align-items: flex-end; 
+                gap: 0;          
+            }   
+
 
             h1 {            
                 color: ${({ theme }) => theme.COLORS.LIGHT_100};
                 font-size: 1.8rem;
                 font-weight: bold;
+                
+
+                @media (max-width: 321px) {
+                    font-size: 1.4rem;                   
+                }   
 
                 @media (min-width: 1024px) {
                     font-size: 2.4rem;
-                }         
+                }      
+                
+                @media (min-width: 1024px) {
+                    font-size: 3rem;
+                }      
             }
 
 
@@ -63,6 +92,10 @@ export const Container = styled.header`
                 display: flex;
                 color: ${({ theme }) => theme.COLORS.TINTS_CAKE_100};
                 font-size: 1.2rem;
+
+                @media (max-width: 321px) {
+                    font-size: 1rem;                   
+                }   
             }
 
         }
@@ -74,10 +107,6 @@ export const Container = styled.header`
     > .searchbar {
         position: relative;
         display: flex;
-
-        label {
-            display: none;
-        }
 
         @media(max-width: 1023px) {
             display: none;
@@ -118,7 +147,6 @@ export const Container = styled.header`
                 background-color: transparent;
                 border: none;
 
-                color: ${({ theme }) => theme.COLORS.LIGHT_100};
                 width: 100%;
                 
                 padding: 8px 0;
@@ -133,6 +161,8 @@ export const Container = styled.header`
 
                 span {
                     font-size: 1.2rem;
+                    
+                    
                    
                     &:first-of-type {
                         margin-right: .5rem;
@@ -143,15 +173,24 @@ export const Container = styled.header`
                 }
             } 
             
-            div {
+            .img-wrapper {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
+                width: 100%;
                 
                 img {
                     width: 5rem;
                     height: 5rem;
-                }                
+                }
+
+                span {
+                    display: flex;
+                    flex: 1;
+                    
+                }
+                
+                
             }
         }
     }
@@ -221,6 +260,20 @@ export const Container = styled.header`
         }
     }
 
+
+    .adminBtn {
+        font-size: 1.4rem;
+        
+        background-color: ${({ theme }) => theme.COLORS.TINTS_TOMATO_100};
+        padding: 1.2rem 4.6rem;
+        border-radius: .5rem;
+
+        @media (max-width: 1022px) {
+                display: none;            
+        }
+
+    }
+
     > .logout {
         display: flex;
         background-color: transparent;
@@ -231,6 +284,14 @@ export const Container = styled.header`
             display: none;            
         }
     }
+`;
 
 
+export const StyledBsFillHexagonFill = styled(BsFillHexagonFill)`
+    font-size: 2.5rem; 
+
+    @media(min-width: 1024px) {
+        font-size: 3.5rem;
+    }
+  
 `;

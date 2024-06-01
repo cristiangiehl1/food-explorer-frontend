@@ -1,8 +1,13 @@
-import { GoPencil } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import { FaRegHeart, FaPlus, FaMinus, FaHeart, FaAngleRight } from "react-icons/fa";
 
-import { Container } from "./styles";
+import { Container, 
+        StyledFaAngleRight, 
+        StyledFaHeart, 
+        StyledFaMinus, 
+        StyledFaPlus,
+        StyledFaRegHeart,
+        StyledGoPencil 
+    } from "./styles";
 
 import { Button } from "../Button"
 
@@ -100,15 +105,16 @@ export function Dishe({ data, fetchCart, ...rest }) {
             <figure>
                 <button className="edit_like">
                     {   [USER_ROLE.ADMIN].includes(user.role) &&
-                        <GoPencil onClick={() => navEdit(data.id)} size={20}/>
+                        <StyledGoPencil onClick={() => navEdit(data.id)}/>
                     }
                     {   ([USER_ROLE.CUSTOMER].includes(user.role) && isFavorite === 0) &&
                         
-                        <FaRegHeart onClick={() => handleAddFavorite(data.id)} size={20}/>
+                        <StyledFaRegHeart onClick={() => handleAddFavorite(data.id)}/>
+                        
                     }
                     {   ([USER_ROLE.CUSTOMER].includes(user.role) && isFavorite === 1) &&
                         
-                        <FaHeart onClick={() => handleRemoveFavorite(data.id)} size={20}/>
+                        <StyledFaHeart onClick={() => handleRemoveFavorite(data.id)}/>
                     }                                          
                 </button>
                 <div className="nav-wrapper">
@@ -117,21 +123,24 @@ export function Dishe({ data, fetchCart, ...rest }) {
                         <figcaption>
                             <div className="disheName">
                                 <h2>{data.name} </h2>
-                                <FaAngleRight size={12}/>
+                                <StyledFaAngleRight />
                             </div>
-                            <p>R$ {editPrice(data.price * disheQuantity)}</p>
+                            <p className="description">{data.description}</p>
+                            <p className="price">R$ {editPrice(data.price * disheQuantity)}</p>
                         </figcaption>
                     </div>
-                    <div className="disheAddSubtract">
-                        <button><FaPlus onClick={() => handleDisheIncrease()} /></button>
-                        <span>{addLeadingZero(disheQuantity)}</span>
-                        <button><FaMinus onClick={() => handleDisheDecrease()} /></button>
-                    </div>
-                    <Button 
-                        title="Incluir"
-                        color="TINTS_TOMATO_100"
-                        onClick={fetchCart}
-                    />                     
+                    <div className="fixScreenSize">
+                        <div className="disheAddSubtract">
+                            <button><StyledFaPlus onClick={() => handleDisheIncrease()} /></button>
+                            <span>{addLeadingZero(disheQuantity)}</span>
+                            <button><StyledFaMinus onClick={() => handleDisheDecrease()} /></button>
+                        </div>
+                        <Button
+                            title="Incluir"
+                            color="TINTS_TOMATO_100"
+                            onClick={fetchCart}
+                        />
+                    </div>                  
                 </div>
             </figure>
         </Container>
