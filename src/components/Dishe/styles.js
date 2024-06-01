@@ -2,17 +2,12 @@ import styled from "styled-components";
 import { GoPencil } from "react-icons/go";
 import { FaRegHeart, FaPlus, FaMinus, FaHeart, FaAngleRight } from "react-icons/fa";
 
-export const Container = styled.div`
-    
-    z-index: 0; 
-    width: 20rem;
-    height: 40rem;
+export const Container = styled.div`   
+    width: 20rem;   
 
     @media(min-width: 1024px) {
         width: 30rem;
-
-    }
-   
+    }   
 
     > figure {
         position: relative;    
@@ -44,12 +39,14 @@ export const Container = styled.div`
         justify-content: center;
 
             img {
-                width: 10rem; 
-                height: 10rem;
+                width: 15rem;
+                height: 15rem;
+                object-fit: cover;
+                overflow: hidden;
 
                 @media(min-width: 1024px) {
-                    width: 17rem; 
-                    height: 17rem;
+                    width: 20rem; 
+                    height: 20rem;
                 }
             }
 
@@ -187,14 +184,11 @@ export const StyledFaRegHeart = styled(FaRegHeart)`
 
 export const StyledFaPlus = styled(FaPlus)`
     font-size: 2rem; 
-    color: ${({ theme }) => theme.COLORS.LIGHT_300};       
-
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};     
 
     @media(min-width: 1024px) {
         font-size: 2.5rem;
-    }
-
-  
+    }  
 `;
 
 export const StyledFaMinus = styled(FaMinus)`
@@ -202,9 +196,7 @@ export const StyledFaMinus = styled(FaMinus)`
 
     @media(min-width: 1024px) {
         font-size: 2.5rem;
-    }
-
-  
+    }  
 `;
 
 export const StyledFaHeart = styled(FaHeart)`
@@ -212,9 +204,7 @@ export const StyledFaHeart = styled(FaHeart)`
 
     @media(min-width: 1024px) {
         font-size: 3rem;
-    }
-
-  
+    }  
 `;
 
 export const StyledFaAngleRight = styled(FaAngleRight)`
@@ -222,7 +212,5 @@ export const StyledFaAngleRight = styled(FaAngleRight)`
 
     @media(min-width: 1024px) {
         font-size: 2.5rem;
-    }
-
-  
+    }  
 `;
