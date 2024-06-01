@@ -129,6 +129,7 @@ export function Dishe({ data, fetchCart, ...rest }) {
                             <p className="price">R$ {editPrice(data.price * disheQuantity)}</p>
                         </figcaption>
                     </div>
+                    {   [USER_ROLE.CUSTOMER].includes(user.role) &&
                     <div className="fixScreenSize">
                         <div className="disheAddSubtract">
                             <button><StyledFaPlus onClick={() => handleDisheIncrease()} /></button>
@@ -140,7 +141,8 @@ export function Dishe({ data, fetchCart, ...rest }) {
                             color="TINTS_TOMATO_100"
                             onClick={fetchCart}
                         />
-                    </div>                  
+                    </div> 
+                    }                 
                 </div>
             </figure>
         </Container>

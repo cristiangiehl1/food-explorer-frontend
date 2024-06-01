@@ -1,17 +1,36 @@
-import styled from "styled-components";
+import styled, { keyframes }  from "styled-components";
 import { GoPencil } from "react-icons/go";
 import { FaRegHeart, FaPlus, FaMinus, FaHeart, FaAngleRight } from "react-icons/fa";
 
+const scrollleft = keyframes`
+    to {
+        left: -30rem;
+    }
+`;
+
 export const Container = styled.div`   
-    width: 20rem;   
+     
+    position: absolute;
+
+    --arraysize: 0;
+
+    left: max(calc(30rem * var(--arraysize)), 100%);
+    animation-name: ${scrollleft};
+    animation-duration: 30s;
+    animation-timing-function: linear; 
+    animation-iteration-count: infinite;  
 
     @media(min-width: 1024px) {
-        width: 30rem;
-    }   
+        width: 30rem;      
+    } 
 
     > figure {
         position: relative;    
-        padding: 5rem 1.5rem;    
+        padding: 5rem 1.5rem;  
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         background-color: ${({ theme }) => theme.COLORS_BACKGROUND_DARK_300};
         
@@ -27,16 +46,17 @@ export const Container = styled.div`
             z-index: 1;
 
             > svg {  
-                color: ${({ theme }) => theme.COLORS.LIGHT_300};       
-              
+                color: ${({ theme }) => theme.COLORS.LIGHT_300};      
             } 
        }
 
        .nav-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            width: 20rem;
 
             img {
                 width: 15rem;
@@ -63,18 +83,18 @@ export const Container = styled.div`
                 justify-content: center;
                 align-items: center;
                 gap: .5rem;
+            
 
                 h2 {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    place-content: center;                    
                     
+                    text-align: center;
                     color: ${({ theme }) => theme.COLORS.LIGHT_300};
                     font-size: 1.5rem;
-                    text-align: center;
                     
                     margin: .8rem 0;
                     height: 5rem;
+                    
 
                     @media(min-width: 320px) {
                         font-size: 1.2rem;                       
@@ -136,7 +156,7 @@ export const Container = styled.div`
                 gap: 1.4rem;                
                 width: 100%;
 
-                margin: 1.5rem 0;
+                margin: 1.5rem 1rem 1.5rem 0;
                 
                 button {
                     background: none;

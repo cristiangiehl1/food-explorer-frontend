@@ -18,6 +18,7 @@ export function Home() {
     const { quantity, setQuantity } = useCart();
     
     const [mostRequested, setMostRequested] = useState("");
+    const [appetizer, setAppetizer] = useState("");
     const [meals, setMeals] = useState("");
     const [desserts, setDesserts] = useState("");
     const [drinks, setDrinks] = useState("");
@@ -67,6 +68,11 @@ export function Home() {
                 return dishe.categories.some(category => category.most_ordered === 1) 
             });
 
+            const fetchAppetizer = dishesWithCategories.filter(dishe => {
+                return dishe.categories.some(category => category.type === "entrada") 
+            });
+
+
             const fetchMeals = dishesWithCategories.filter(dishe => {
                 return dishe.categories.some(category => category.type === "refeição") 
             });
@@ -81,6 +87,7 @@ export function Home() {
             });                     
             
             setDishes(dishesWithCategories);  
+            setAppetizer(fetchAppetizer);  
             setMostRequested(fetchMostRequested);
             setMeals(fetchMeals);
             setDesserts(fetchDesserts);
@@ -109,9 +116,13 @@ export function Home() {
                     <h2>Mais Pedidos</h2>
                     <section>
                         {   mostRequested &&
-                            mostRequested.map(dishe => (
+                            mostRequested.map((dishe, index) => (
                             <Dishe
-                                key={String(dishe.id)}
+                                style={{
+                                    '--delay' : ((30 / mostRequested.length) * (mostRequested.length - index) * - 1) + "s",
+                                    '--arraysize' : mostRequested.length
+                                }}
+                                key={String(index)}
                                 data={dishe}
                                 fetchCart={() => cartToLocalStorage(dishe, quantity)}
                             />
@@ -122,9 +133,13 @@ export function Home() {
                     <section>
                         {   
                             meals &&
-                            meals.map(dishe => (
+                            appetizer.map((dishe, index) => (
                             <Dishe
-                                key={String(dishe.id)}
+                                style={{
+                                    '--delay' : ((30 / appetizer.length) * (appetizer.length - index) * - 1) + "s",
+                                    '--arraysize' : appetizer.length
+                                }}                                
+                                key={String(index)}
                                 data={dishe}
                                 fetchCart={() => cartToLocalStorage(dishe, quantity)}
 
@@ -136,9 +151,13 @@ export function Home() {
                     <section>
                         {   
                             meals &&
-                            meals.map(dishe => (
+                            meals.map((dishe, index)=> (
                             <Dishe
-                                key={String(dishe.id)}
+                                style={{
+                                    '--delay' : ((30 / meals.length) * (meals.length - index) * - 1) + "s",
+                                    '--arraysize' : meals.length
+                                }}   
+                                key={String(index)}
                                 data={dishe}
                                 fetchCart={() => cartToLocalStorage(dishe, quantity)}
                             />
@@ -149,9 +168,13 @@ export function Home() {
                     <section>
                         {   
                             desserts &&
-                            desserts.map(dishe => (
+                            desserts.map((dishe, index) => (
                             <Dishe
-                                key={String(dishe.id)}
+                                style={{
+                                    '--delay' : ((30 / desserts.length) * (desserts.length - index) * - 1) + "s",
+                                    '--arraysize' : desserts.length
+                                }}                              
+                                key={String(index)}
                                 data={dishe}  
                                 fetchCart={() => cartToLocalStorage(dishe, quantity)}              
                             />
@@ -162,9 +185,13 @@ export function Home() {
                     <section>
                         {
                             drinks &&
-                            drinks.map(dishe => (
+                            drinks.map((dishe, index) => (
                             <Dishe
-                                key={String(dishe.id)}
+                                style={{
+                                    '--delay' : ((30 / drinks.length) * (drinks.length - index) * - 1) + "s",
+                                    '--arraysize' : drinks.length
+                                }}   
+                                key={String(index)}
                                 data={dishe}  
                                 fetchCart={() => cartToLocalStorage(dishe, quantity)}                                            
                             />

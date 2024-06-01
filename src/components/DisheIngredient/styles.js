@@ -15,6 +15,14 @@ export const Container = styled.div`
     border: ${({ theme, $isNew }) => $isNew ? `2px dashed ${theme.COLORS.LIGHT_500}` : "none"};
     border-radius: 8px;    
 
+    @media(min-width: 768px) {
+        width: 25%;
+    }
+
+    @media(min-width: 1024px) {
+        width: 25%;
+    }
+
     > button {
         border: none;
         background: transparent;
@@ -37,6 +45,10 @@ export const Container = styled.div`
         border: none;
         width: 100%;
         font-size: 1.2rem;
+
+        @media(min-width: 1024px) {
+            font-size: 1.6rem;
+        }
 
         &::placeholder {
             color: ${({ theme }) => theme.COLORS.LIGHT_500};

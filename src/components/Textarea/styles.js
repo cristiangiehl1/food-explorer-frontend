@@ -31,6 +31,10 @@ export const Container = styled.div`
             color: ${({ theme }) => theme.COLORS.LIGHT_700};
             font-family: "Roboto", sans-serif;
             font-size: 1.4rem;
+
+            @media(min-width: 1024px) {
+                font-size: 1.6rem;
+            }
         }
 
     }

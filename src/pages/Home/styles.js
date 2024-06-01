@@ -5,7 +5,13 @@ export const Container = styled.div`
     .content {
         &[data-hide-home="false"] {
             display: none;  
-        }  
+        }
+        
+        @media(min-width: 1024px) {
+            &[data-hide-home="false"] {
+                display: block;  
+            }
+        }
 
         .figureTitle {
             position: relative;
@@ -18,18 +24,7 @@ export const Container = styled.div`
             ${({ theme }) => theme.COLORS.BACKGROUND_DARK_900});
 
             margin: 6.2rem 9vw;
-            /* margin: 4.4rem 3rem 6.2rem 3rem;
-            padding: 2.2rem 2.1rem 2.2rem 12.5rem;
 
-            @media(min-width: 768px) {           
-                padding: 4rem 2.1rem 4rem 12rem;
-                margin: 8rem 3rem 6.2rem 3rem;
-            }
-
-            @media(min-width: 1024px) {           
-                padding: 10rem 2.1rem 10rem 18rem;
-                margin: 12rem 3rem 6.2rem 3rem;
-            } */
 
             img {
                 position: absolute;
@@ -122,15 +117,34 @@ export const Container = styled.div`
             section {
                 position: relative;
                 display: flex;
-                gap: 1.6rem;    
+                gap: 1.6rem;   
+                
+                height: 40rem;
 
+                overflow: hidden;
+                mask-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 1) 20%,
+                    rgba(0, 0, 0, 1) 80%,
+                    rgba(0, 0, 0, 0) 
+                );
+
+                --delay: 0;
+
+                @media(min-width: 1024px) {
+                    height: 50rem;
+                }
+
+                div {                   
+                    animation-delay: var(--delay);
+                }
+
+                &:hover > div {
+                    animation-play-state: paused;
+                }
 
                 &:nth-child(n+2) {
                     margin-bottom: 2.4rem;
-                }
-
-                div {
-                   
                 }
             }
         }       

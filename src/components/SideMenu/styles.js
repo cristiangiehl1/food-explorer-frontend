@@ -4,22 +4,25 @@ import styled from "styled-components";
 export const Container = styled.aside`
     height: 100vh;
     width: 100%;
+    
     position: absolute;
     z-index: 1;
 
     background-color: ${({ theme }) => theme.COLORS.BLACK};
 
-    flex-direction: column;
-
-    display: flex;
+    display: grid;
+    grid-template-rows: auto auto auto; 
 
     transform: translateX(-100%);
     transition: transform .3s ease-in-out;
 
-    &[data-menu-is-open="true"] {
-   
+    &[data-menu-is-open="true"] {   
         transform: translateX(0);
+    }
 
+    @media(min-width: 1024px) {
+        display: none;
+        
     }
 
     > header {
@@ -48,22 +51,18 @@ export const Container = styled.aside`
     }
 
     > main {
-        margin: 3.6rem 2rem 0;
-        flex: 1;
+        margin: 3.6rem 2rem 0;      
         display: flex;
         flex-direction: column;
 
-
-        aside {   
-            flex: 1;
+        aside {  
+            height: 15rem;
+            overflow-y: auto;  
 
             margin-top: .5rem;
             background-color: ${({ theme }) => theme.COLORS.LIGHT_700};
             padding: 0 1rem;
             border-radius: .8rem;
-
-            
-            overflow-y: auto;         
             
             opacity: 0;
             visibility: hidden;            
