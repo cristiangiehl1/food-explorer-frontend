@@ -16,7 +16,7 @@ export const Container = styled.header`
     
     @media (min-width: 1024px) {
         display: grid;
-        grid-template-columns: max-content 1fr max-content max-content;
+        grid-template-columns: max-content 1fr max-content max-content max-content;
     }   
     
     button {
@@ -198,6 +198,7 @@ export const Container = styled.header`
     > .ordersNumb {
         position: relative;
         display: flex;
+        gap: 2rem;
 
         &[data-orders-is-available="false"] {
             display: none;
@@ -236,7 +237,7 @@ export const Container = styled.header`
             }  
         }
 
-        .largeScreenBtn {            
+        .client-cart-btn {            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -258,6 +259,23 @@ export const Container = styled.header`
                 display: none;            
             }
         }
+    }
+
+    .client-favorites-btn {
+        background-color: transparent;
+        border: none;
+
+        span {
+            font-size: 1.6rem;
+            color: ${({ theme }) => theme.COLORS.LIGHT_300};
+        }
+    }
+    
+    .largeScreenBtn {
+        @media (max-width: 1022px) {
+            display: none;            
+        }
+
     }
 
 

@@ -87,7 +87,7 @@ export function Details() {
 
 
     useEffect(() => {
-        const cartFromLocalStorage = localStorage.getItem("@foodexpress:cart");
+        const cartFromLocalStorage = localStorage.getItem(`@foodexpress:cart_${user.id}`);
 
         if(cartFromLocalStorage) {            
             setCart(JSON.parse(cartFromLocalStorage))
@@ -96,7 +96,7 @@ export function Details() {
 
     useEffect(() => {
         if(cart.length > 0) {
-            localStorage.setItem("@foodexpress:cart", JSON.stringify(cart))
+            localStorage.setItem(`@foodexpress:cart_${user.id}`, JSON.stringify(cart))
         }
     
     }, [cart]);
@@ -118,7 +118,7 @@ export function Details() {
                             <span>Voltar</span>
                         </button>
                         <figure>
-                            <img src={disheURL} alt={data.name} />
+                            <div><img src={disheURL} alt={data.name} /></div>
                             <figcaption>
                                 <h2>{data.name}</h2>
                                 <p>{data.description}</p>
@@ -127,35 +127,40 @@ export function Details() {
                                         data.ingredients.map(ingredient => {
                 
                                             return <div key={ingredient.id}>
-                                                    <span>{ingredient.ingredient}</span>
-                                                </div>
+                                                <span>{ingredient.ingredient}</span>
+                                            </div>
                                         })
                                     }
                                 </div>
+                                {  [USER_ROLE.ADMIN].includes(user.role) &&                      
+                                    <Button
+                                        className="btn-admin-only"
+                                        title="Editar prato"
+                                        onClick={handleEditNav}
+                                    />
+                                }
+                                {  [USER_ROLE.CUSTOMER].includes(user.role) &&                      
+                                    
+                                    <div className="customerOnly">
+                                        <div className="disheAddSubtract">
+                                            <button><FaPlus onClick={() => handleDisheIncrease()}  size={15}/></button>
+                                            <span>{addLeadingZero(disheQuantity)}</span>
+                                            <button><FaMinus onClick={() => handleDisheDecrease()} size={15}/></button>
+                                        </div>
+                                        <Button
+                                            className=""
+                                            title={`Pedir - R$ ${priceCorrection(data.price * disheQuantity)}`}
+                                            onClick={() => cartToLocalStorage(data, disheQuantity)}
+                                            icon={PiNewspaperClipping}
+                                            color="TINTS_TOMATO_100"
+                                        />
+                                    </div>
+                                }                                
                             </figcaption>
-                        </figure>
-                        {  [USER_ROLE.ADMIN].includes(user.role) &&                      
-                            <Button
-                                title="Editar prato"
-                                onClick={handleEditNav}
-                            />
-                        }
-                        {  [USER_ROLE.CUSTOMER].includes(user.role) &&                      
                             
-                            <div className="customerOnly">
-                                <div className="disheAddSubtract">
-                                    <button><FaPlus onClick={() => handleDisheIncrease()}  size={15}/></button>
-                                    <span>{addLeadingZero(disheQuantity)}</span>
-                                    <button><FaMinus onClick={() => handleDisheDecrease()} size={15}/></button>
-                                </div>
-                                <Button
-                                    title={`Pedir - R$ ${priceCorrection(data.price * disheQuantity)}`}
-                                    onClick={() => cartToLocalStorage(data, disheQuantity)}
-                                    icon={PiNewspaperClipping}
-                                    color="TINTS_TOMATO_100"
-                                />
-                            </div>
-                        }
+                            
+                        </figure>
+
                     </main>
                 }
                 <Footer />

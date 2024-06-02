@@ -37,6 +37,10 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
         navigate("/users");       
     }
 
+    function handleFavorites() {
+        navigate("/favorites");  
+    }
+
     function handleSignOut() {
         navigate("/");
         signOut();
@@ -110,13 +114,19 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
                         ))
                     } 
                 </aside>
-                <section>
+                {/* <section>
                     <button onClick={handleProfile}>Meu perfil</button>
-                </section>
+                </section> */}
                 {
                     [USER_ROLE.ADMIN].includes(user.role) &&
                     <section>
                         <button onClick={handleNew}>Novo prato</button>
+                    </section>                   
+                }
+                {
+                    [USER_ROLE.CUSTOMER].includes(user.role) &&
+                    <section>
+                        <button onClick={handleFavorites}>Meus Favoritos</button>
                     </section>                   
                 }
 

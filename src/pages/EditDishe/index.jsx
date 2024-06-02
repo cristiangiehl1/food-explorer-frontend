@@ -165,7 +165,7 @@ export function EditDishe() {
                                     value={categories}
                                     onChange={(e) => setCategories(e.target.value)}
                                 >
-                                    <option value="">Escolha uma opção</option>
+                                    <option value="">Selecione opção</option>
                                     <option value="bebida">bebida</option>
                                     <option value="bebida">entrada</option>
                                     <option value="refeição">refeição</option>

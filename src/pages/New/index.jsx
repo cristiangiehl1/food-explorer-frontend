@@ -161,38 +161,40 @@ export function New() {
                     </button>  
                     <form>
                         <h1>Novo Prato</h1>
-                        <div>
-                            <label htmlFor="fileUpload">Imagem do prato</label>
-                            <div className="custom-file-upload">
-                                <input 
-                                    type="file" 
-                                    id="fileUpload"
-                                    onChange={handleChangeDisheImg}
-                                />
-                                <MdOutlineFileUpload size={20}/>
-                                <p>{disheImgFile && disheImgFile.name || "Selecione imagem para alterá-la"}</p>
+                        <div className="largeScreenFix">
+                            <div>
+                                <label htmlFor="fileUpload">Imagem do prato</label>
+                                <div className="custom-file-upload">
+                                    <input
+                                        type="file"
+                                        id="fileUpload"
+                                        onChange={handleChangeDisheImg}
+                                    />
+                                    <MdOutlineFileUpload size={20}/>
+                                    <p>{disheImgFile && disheImgFile.name || "Selecione imagem"}</p>
+                                </div>
                             </div>
-                        </div>
-                        <Input 
-                            label="Nome"
-                            type="text"
-                            placeholder="Ex.: Frango à parmegiana"
-                            id="name"
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        <div>
-                            <label htmlFor="category">Categoria</label>                            
-                            <select 
-                                className="input-category" 
-                                id="category" 
-                                name="category"                                 
-                                onChange={(e) => setCategories(e.target.value)}
-                            >
-                                <option value="">Selecione uma opção</option>
-                                <option value="bebida">bebida</option>
-                                <option value="refeição">refeição</option>                               
-                                <option value="sobremesa">sobremesa</option>
-                            </select>                
+                            <Input
+                                label="Nome"
+                                type="text"
+                                placeholder="Ex.: Frango à parmegiana"
+                                id="name"
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <div>
+                                <label htmlFor="category">Categoria</label>
+                                <select
+                                    className="input-category"
+                                    id="category"
+                                    name="category"
+                                    onChange={(e) => setCategories(e.target.value)}
+                                >
+                                    <option value="">Selecione opção</option>
+                                    <option value="bebida">bebida</option>
+                                    <option value="refeição">refeição</option>
+                                    <option value="sobremesa">sobremesa</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="checkbox">
                             <input
@@ -204,46 +206,53 @@ export function New() {
                             <span className="checkmark" data-is-checked={isMostOrdered}></span>
                             <label htmlFor="checkbox">O prato é um dos mais pedidos?</label>
                         </div>                        
-                        <div>
-                            <label htmlFor="ingredients">Ingredientes</label>
-                            <section id="ingredients">
-                                {
-                                   ingredients &&
-                                   ingredients.map((ingredient, index) => (
+                        <div className="largeScreenFix2">
+                            <div className="ingredients-wrapper">
+                                <label htmlFor="ingredients">Ingredientes</label>
+                                <section id="ingredients">
+                                    {
+                                       ingredients &&
+                                       ingredients.map((ingredient, index) => (
+                                        <DisheIngredient
+                                            key={String(index)}
+                                            value={ingredient}
+                                            onClick={() => handleRemoveIngredient(ingredient)}
+                                        />
+                                       ))
+                                    }
                                     <DisheIngredient
-                                        key={String(index)}
-                                        value={ingredient}
-                                        onClick={() => handleRemoveIngredient(ingredient)}
-                                    />
-                                   ))
-                                }
-                                <DisheIngredient
-                                    isNew
-                                    value={newIngredient}
-                                    placeholder="Adicionar"
-                                    onChange={e => setNewIngredient(e.target.value)}
-                                    onClick={handleAddIngredient}
-                                    />
-                            </section>
+                                        isNew
+                                        value={newIngredient}
+                                        placeholder="Adicionar"
+                                        onChange={e => setNewIngredient(e.target.value)}
+                                        onClick={handleAddIngredient}
+                                        />
+                                </section>
+                            </div>
+                            <div className="input-price">
+                                <Input
+                                
+                                    label="Preço"
+                                    type="text"
+                                    placeholder="Ex.: R$ 80,00"
+                                    id="price"
+                                    onChange={(e) => setPrice(e.target.value)}
+                                />
+                            </div>
                         </div>
-                        <Input 
-                            label="Preço"
-                            type="text"
-                            placeholder="Ex.: R$ 80,00"
-                            id="price"
-                            onChange={(e) => setPrice(e.target.value)}
-                        />
                         <Textarea 
                             label="Descrição"
                             id="description"
                             placeholder="Ex.: esse é simplemente o melhor prato da porra do mundo"
                             onChange={(e) => setDescription(e.target.value)}
                         />
-                        <Button 
-                            title="Salvar alterações"
-                            color="TINTS_TOMATO_400"
-                            onClick={handleCreateDishe}
-                        />                           
+                        <div className="buttons-wrapper">
+                            <Button
+                                title="Salvar alterações"
+                                color="TINTS_TOMATO_400"
+                                onClick={handleCreateDishe}
+                            />
+                        </div>                     
                     </form>
                 </main>
                 <Footer />

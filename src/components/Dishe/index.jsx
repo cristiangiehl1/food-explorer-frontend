@@ -38,18 +38,24 @@ export function Dishe({ data, fetchCart, ...rest }) {
         navigate(`/details/${id}`)
     }
 
-    async function handleAddFavorite(id) {
-        setIsFavorite(1)
+    async function handleAddFavorite(id) {       
+        const disheFavoriteExists = await api.get(`/favorites/${id}`)        
 
-        await api.put(`/categories/${id}`, {
+        if(!disheFavoriteExists.data) {
+            await api.post(`/favorites/${id}`)
+        }        
+
+        await api.put(`/favorites/${id}/`, {
             favorite: true
         })
+
+        setIsFavorite(1)
     }
 
     async function handleRemoveFavorite(id) {
         setIsFavorite(0)
 
-        await api.put(`/categories/${id}`, {
+        await api.put(`/favorites/${id}/`, {
             favorite: false
         })
     }
@@ -82,9 +88,13 @@ export function Dishe({ data, fetchCart, ...rest }) {
 
     useEffect(() => {
         async function fetchCategories() {
-            const categories = await api.get(`/categories/${data.id}`)
-
+            const categories = await api.get(`/favorites/${data.id}`)
+            
+            if(!categories.data) {                
+                return setIsFavorite(0)
+            }
             const favorite = categories.data.favorite;
+            
             setIsFavorite(favorite)  
         }
         fetchCategories();

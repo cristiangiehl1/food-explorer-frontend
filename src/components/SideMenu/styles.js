@@ -56,7 +56,7 @@ export const Container = styled.aside`
         flex-direction: column;
 
         aside {  
-            height: 15rem;
+            height: 25rem;
             overflow-y: auto;  
 
             margin-top: .5rem;

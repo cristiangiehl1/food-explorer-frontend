@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import homeImg from "../../assets/dishes/homeimg.png";
 
 import { api } from "../../services/api";
-import { useAuth } from "../../hooks/auth";
 import { useCart } from "../../hooks/clientcart";
+import { useAuth } from "../../hooks/auth";
 
 
 export function Home() {
@@ -43,7 +43,7 @@ export function Home() {
 
 
     useEffect(() => {
-        const cartFromLocalStorage = localStorage.getItem("@foodexpress:cart");
+        const cartFromLocalStorage = localStorage.getItem(`@foodexpress:cart_${user.id}`);
 
         if(cartFromLocalStorage) {            
             setCart(JSON.parse(cartFromLocalStorage))
@@ -52,7 +52,7 @@ export function Home() {
 
     useEffect(() => {
         if(cart.length > 0) {
-            localStorage.setItem("@foodexpress:cart", JSON.stringify(cart))
+            localStorage.setItem(`@foodexpress:cart_${user.id}`, JSON.stringify(cart))
         }
     
     }, [cart]);
@@ -123,7 +123,7 @@ export function Home() {
                                     '--arraysize' : mostRequested.length
                                 }}
                                 key={String(index)}
-                                data={dishe}
+                                data={dishe}                                
                                 fetchCart={() => cartToLocalStorage(dishe, quantity)}
                             />
                             ))

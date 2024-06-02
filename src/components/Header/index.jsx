@@ -47,6 +47,10 @@ export function Header({ onOpenMenu, quantity }) {
         navigate(`/details/${id}`);
     }
 
+    function handleFavorites() {
+        navigate("/favorites");
+    }
+
     function handleSignOut() {
         signOut();
         navigate("/");
@@ -135,10 +139,16 @@ export function Header({ onOpenMenu, quantity }) {
                         ))
                     } 
                 </aside>
-            </div>
-
+            </div>                     
+            {   [USER_ROLE.CUSTOMER].includes(user.role) &&        
+                <button 
+                    className="client-favorites-btn largeScreenBtn" 
+                    onClick={handleFavorites}>
+                        <span>Meus favoritos</span>
+                </button> 
+            }
             {   [USER_ROLE.CUSTOMER].includes(user.role) &&         
-                <div className="ordersNumb">    
+                <div className="ordersNumb">                    
                     <div className="smallScreenBtn-Container">
                         <PiNewspaperClipping size={25}/>
                         <button className="smallScreenBtn">
@@ -146,15 +156,15 @@ export function Header({ onOpenMenu, quantity }) {
                                quantity
                             }
                         </button>
-                    </div>
-                    { [USER_ROLE.CUSTOMER].includes(user.role) &&                  
-                    <button className="largeScreenBtn">
+                    </div>    
+                               
+                    <button className="client-cart-btn largeScreenBtn">
                         <PiNewspaperClipping size={30}/>
                         {
                             `Pedidos (${quantity})`
                         }
                     </button>
-                    }         
+                         
                 </div>
             }
             { [USER_ROLE.ADMIN].includes(user.role) &&                  
@@ -164,7 +174,6 @@ export function Header({ onOpenMenu, quantity }) {
                     </button>
                 </div>
             }      
-               
 
             <button className="logout" onClick={() => handleSignOut()}>
                 <MdLogout size={30}/>
