@@ -5,6 +5,7 @@ import { Details } from "../pages/Details";
 import { EditDishe } from "../pages/EditDishe";
 import { New } from "../pages/New";
 import { Profile } from "../pages/Profile";
+import { Cart } from "../pages/Cart";
 import { NotFound } from "../pages/NotFound";
 
 export function AdminRoutes() {
@@ -15,6 +16,7 @@ export function AdminRoutes() {
             <Route path="/editdishe/:id" element={<EditDishe />} />
             <Route path="/dishes" element={<New />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/cart" element={<Cart />} />
             
             <Route path="*" exact={true} element={<NotFound />} />
         </Routes>

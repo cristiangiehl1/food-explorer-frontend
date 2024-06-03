@@ -60,6 +60,10 @@ export function Header({ onOpenMenu, quantity }) {
         navigate("/dishes");
     }
 
+    function handleCart() {
+        navigate("/cart");
+    }
+
     // const [cartOrders, setCartOrders] = useState();
 
     // useEffect(() => {
@@ -151,14 +155,14 @@ export function Header({ onOpenMenu, quantity }) {
                 <div className="ordersNumb">                    
                     <div className="smallScreenBtn-Container">
                         <PiNewspaperClipping size={25}/>
-                        <button className="smallScreenBtn">
+                        <button onClick={handleCart} className="smallScreenBtn">
                             {
                                quantity
                             }
                         </button>
                     </div>    
                                
-                    <button className="client-cart-btn largeScreenBtn">
+                    <button onClick={handleCart} className="client-cart-btn largeScreenBtn">
                         <PiNewspaperClipping size={30}/>
                         {
                             `Pedidos (${quantity})`

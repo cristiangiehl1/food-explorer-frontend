@@ -3,8 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Details } from "../pages/Details";
 import { Profile } from "../pages/Profile";
-import { NotFound } from "../pages/NotFound";
 import { Favorites } from "../pages/Favorites";
+import { Cart } from "../pages/Cart";
+import { NotFound } from "../pages/NotFound";
 
 export function CustomerRoutes() {
     return (
@@ -13,7 +14,8 @@ export function CustomerRoutes() {
             <Route path="/details/:id" element={<Details />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/favorites" element={<Favorites />} />
-            
+            <Route path="/cart" element={<Cart />} />
+
             <Route path="*" exact={true} element={<NotFound />} />
         </Routes>
     )
