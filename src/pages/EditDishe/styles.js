@@ -123,6 +123,10 @@ export const Container = styled.div`
     .custom-file-upload {
         position: relative;
         overflow: hidden;
+        
+        input {
+            width: 100%;
+        }
     }
 
     .custom-file-upload input[type="file"] {

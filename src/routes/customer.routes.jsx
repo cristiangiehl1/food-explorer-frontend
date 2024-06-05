@@ -5,6 +5,7 @@ import { Details } from "../pages/Details";
 import { Profile } from "../pages/Profile";
 import { Favorites } from "../pages/Favorites";
 import { Cart } from "../pages/Cart";
+import { BuyHistoric } from "../pages/BuyHistoric";
 import { NotFound } from "../pages/NotFound";
 
 export function CustomerRoutes() {
@@ -15,6 +16,7 @@ export function CustomerRoutes() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/historic" element={<BuyHistoric />} />
 
             <Route path="*" exact={true} element={<NotFound />} />
         </Routes>

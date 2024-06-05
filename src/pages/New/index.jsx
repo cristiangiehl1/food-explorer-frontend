@@ -120,6 +120,8 @@ export function New() {
                 }
             }
         }
+
+        navigate("/")
     }
 
     function handleCheckbox() {
@@ -190,6 +192,7 @@ export function New() {
                                     onChange={(e) => setCategories(e.target.value)}
                                 >
                                     <option value="">Selecione opção</option>
+                                    <option value="entrada">Entrada</option>
                                     <option value="bebida">bebida</option>
                                     <option value="refeição">refeição</option>
                                     <option value="sobremesa">sobremesa</option>

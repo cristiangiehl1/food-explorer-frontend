@@ -55,6 +55,10 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
         return formattedPrice.replace('.', ',');
     }
 
+    function hadleBuyHistoric() {
+        navigate("/historic")
+    }
+
     async function handleNavDetails(id) {
         navigate(`/details/${id}`);
         onCloseMenu();
@@ -129,7 +133,9 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
                         <button onClick={handleFavorites}>Meus Favoritos</button>
                     </section>                   
                 }
-
+                <section>
+                    <button onClick={hadleBuyHistoric}>Meus pedidos</button>
+                </section>                   
                 <section>
                     <button onClick={handleSignOut}>Sair</button>
                 </section>

@@ -16,13 +16,14 @@ export const Container = styled.header`
     
     @media (min-width: 1024px) {
         display: grid;
-        grid-template-columns: max-content 1fr max-content max-content max-content;
+        grid-template-columns: max-content 1fr max-content max-content max-content max-content;
     }   
     
     button {
         border: none;
         color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
+        
     }
 
     > .menu {
@@ -82,7 +83,7 @@ export const Container = styled.header`
                     font-size: 2.4rem;
                 }      
                 
-                @media (min-width: 1024px) {
+                @media (min-width: 1044px) {
                     font-size: 3rem;
                 }      
             }
@@ -205,6 +206,7 @@ export const Container = styled.header`
         }
 
         .smallScreenBtn-Container {
+            cursor: pointer;
            
 
             @media (min-width: 1023px) {
@@ -255,24 +257,36 @@ export const Container = styled.header`
             font-size: 1.4rem;
 
 
-            @media (max-width: 1022px) {
+            @media (max-width: 1023px) {
                 display: none;            
             }
+
+            @media (min-width: 1024px) {
+                padding: .8rem 2rem;        
+            }
+            
         }
     }
 
-    .client-favorites-btn {
+    .client-favorites-btn,
+    .client-orders-btn {
         background-color: transparent;
         border: none;
 
         span {
             font-size: 1.6rem;
             color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
+            @media(min-width: 1024px) {
+                font-size: 1.4rem;
+            }
+
+
         }
     }
     
     .largeScreenBtn {
-        @media (max-width: 1022px) {
+        @media (max-width: 1023px) {
             display: none;            
         }
 
@@ -286,7 +300,7 @@ export const Container = styled.header`
         padding: 1.2rem 4.6rem;
         border-radius: .5rem;
 
-        @media (max-width: 1022px) {
+        @media (max-width: 1023px) {
                 display: none;            
         }
 

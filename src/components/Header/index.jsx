@@ -64,18 +64,9 @@ export function Header({ onOpenMenu, quantity }) {
         navigate("/cart");
     }
 
-    // const [cartOrders, setCartOrders] = useState();
-
-    // useEffect(() => {
-    //     async function fetchCart() {            
-    //         const cartOrders = localStorage.getItem("@foodexpress:cart")
-
-    //         if(cartOrders) {
-    //             setCartOrders(JSON.parse(cartOrders));
-    //         }
-    //     } 
-    //     fetchCart();
-    // }, [quantity]);
+    function handleBuyHistoric() {
+        navigate("/historic")
+    }
 
     useEffect(() => {
         async function handleSearchResult() { 
@@ -151,11 +142,18 @@ export function Header({ onOpenMenu, quantity }) {
                         <span>Meus favoritos</span>
                 </button> 
             }
+            {   window.innerWidth >= 1024 &&       
+                <button 
+                    className="client-orders-btn largeScreenBtn" 
+                    onClick={handleBuyHistoric}>
+                        <span>Meus pedidos</span>
+                </button> 
+            }
             {   [USER_ROLE.CUSTOMER].includes(user.role) &&         
                 <div className="ordersNumb">                    
-                    <div className="smallScreenBtn-Container">
+                    <div className="smallScreenBtn-Container"  onClick={handleCart}>
                         <PiNewspaperClipping size={25}/>
-                        <button onClick={handleCart} className="smallScreenBtn">
+                        <button className="smallScreenBtn">
                             {
                                quantity
                             }
