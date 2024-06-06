@@ -27,6 +27,8 @@ export const Container = styled.div`
     > figure {
         position: relative;    
         padding: 5rem 1.5rem;  
+
+      
         
         display: flex;
         align-items: center;
@@ -34,16 +36,23 @@ export const Container = styled.div`
 
         background-color: ${({ theme }) => theme.COLORS_BACKGROUND_DARK_300};
         
+        @media(min-width: 1024px) {
+           
+
+        }
+
        .edit_like {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            right: 10px; 
-            top: 16px;
+            width: 2rem;
+            height: 2rem;
+            right: 2rem; 
+            top: 2rem;
 
             border: none;
             background-color: transparent;
             z-index: 1;
+
+
 
             > svg {  
                 color: ${({ theme }) => theme.COLORS.LIGHT_300};      
@@ -63,6 +72,13 @@ export const Container = styled.div`
                 height: 15rem;
                 object-fit: cover;
                 overflow: hidden;
+                transform: scale(1);
+                transition: transform .3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.1);
+                    transition: transform 0.3s linear; 
+                }
 
                 @media(min-width: 1024px) {
                     width: 20rem; 
@@ -93,7 +109,8 @@ export const Container = styled.div`
                     font-size: 1.5rem;
                     
                     margin: .8rem 0;
-                    height: 5rem;
+                    min-height: 5rem;
+                    line-height: 2.5rem;
                     
 
                     @media(min-width: 320px) {
@@ -112,8 +129,7 @@ export const Container = styled.div`
 
             .description {
                 display: none;
-                height: 4rem;
-
+                min-height: 4rem;              
 
                 @media(min-width: 1024px) {
                     display: block;
@@ -121,6 +137,8 @@ export const Container = styled.div`
                     font-family: "Roboto", sans-serif;
                     font-size: 1.4rem;
                     text-align: center;
+                    line-height: 2rem;
+
 
                     margin: 1rem 0;
                 }
@@ -199,7 +217,6 @@ export const StyledFaRegHeart = styled(FaRegHeart)`
         font-size: 3rem;
     }
 
-  
 `;
 
 export const StyledFaPlus = styled(FaPlus)`

@@ -24,8 +24,7 @@ export function New() {
     const [categories, setCategories] = useState("");
     const [isMostOrdered, setIsMostOrdered] = useState("");
 
-    const [message, setMessage] = useState();
-    const [bgColor, setBgColor] = useState();
+    const [message, setMessage] = useState("");
     
     const [disheImgFile, setDisheImgFile] = useState(null);
 
@@ -84,16 +83,10 @@ export function New() {
                 most_ordered: isMostOrdered
             });
     
-            responseData = response.data; 
-      
-    
-            setMessage("Prato cadastrado com sucesso");
-            setBgColor("TINTS_CAKE_200");
-    
-            setTimeout(() => {
-                setMessage("");
-                setBgColor("");
-            }, 5900);
+            responseData = response.data;
+
+            navigate("/")
+
         } catch (error) {
             if (error.response) {
                 userMessage(error.response.data.message);
@@ -120,8 +113,6 @@ export function New() {
                 }
             }
         }
-
-        navigate("/")
     }
 
     function handleCheckbox() {
@@ -136,16 +127,37 @@ export function New() {
         navigate("/")
     }
 
+    function handleCloseMessage() {
+        setMessage("")
+    }
+
+    
+
     useEffect(() => {            
    
     }, [])
 
+    useEffect(() => {
+        if (!menuIsOpen) {
+          const content = document.querySelector(".content")
+          content.style.display = "block";
+          return;
+        }
+    
+        const timeoutId = setTimeout(() => {
+            const content = document.querySelector(".content")
+            content.style.display = "none";
+        }, 300);
+    
+        return () => clearTimeout(timeoutId);
+      }, [menuIsOpen]);
+
     return(
         <Container>
             <UserMesssage   
-                background={bgColor}                  
                 message={message} 
                 isMessage={!!message}
+                onClose={handleCloseMessage}
             />
             <SideMenu 
                 menuIsOpen={menuIsOpen}
@@ -192,7 +204,7 @@ export function New() {
                                     onChange={(e) => setCategories(e.target.value)}
                                 >
                                     <option value="">Selecione opção</option>
-                                    <option value="entrada">Entrada</option>
+                                    <option value="entrada">entrada</option>
                                     <option value="bebida">bebida</option>
                                     <option value="refeição">refeição</option>
                                     <option value="sobremesa">sobremesa</option>

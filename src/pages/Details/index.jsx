@@ -65,15 +65,6 @@ export function Details() {
         navigate(`/editdishe/${params.id}`)
     }
 
-    useEffect(() => {
-        async function fetchDishe() {                       
-            const response = await api.get(`/dishes/${params.id}`);            
-            setData(response.data);     
-
-        }
-        fetchDishe();
-    }, [data])
-
     function cartToLocalStorage(data, quantity) {
         const newCart = [...cart];
 
@@ -84,6 +75,15 @@ export function Details() {
         setCart(newCart);
         setDisheQuantity(1);
     }
+
+    useEffect(() => {
+        async function fetchDishe() {                       
+            const response = await api.get(`/dishes/${params.id}`);            
+            setData(response.data);     
+
+        }
+        fetchDishe();
+    }, [data])
 
 
     useEffect(() => {
@@ -100,6 +100,21 @@ export function Details() {
         }
     
     }, [cart]);
+
+    useEffect(() => {
+        if (!menuIsOpen) {
+          const content = document.querySelector(".content")
+          content.style.display = "block";
+          return;
+        }
+    
+        const timeoutId = setTimeout(() => {
+            const content = document.querySelector(".content")
+            content.style.display = "none";
+        }, 300);
+    
+        return () => clearTimeout(timeoutId);
+      }, [menuIsOpen]);
 
 
     return(
@@ -162,9 +177,9 @@ export function Details() {
                         </figure>
 
                     </main>
-                }
-                <Footer />
-            </div>         
+                }           
+            </div>
+            <Footer />         
         </Container>
     )
 }

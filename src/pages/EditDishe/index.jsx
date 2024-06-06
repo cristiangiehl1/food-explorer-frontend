@@ -22,6 +22,8 @@ import { useAuth } from "../../hooks/auth";
 export function EditDishe() {
     const { updateDishe, message } = useAuth();
 
+    const [userMessage, setUserMessage] = useState(message)
+
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
@@ -55,12 +57,24 @@ export function EditDishe() {
         await updateDishe({ dishe, disheImgFile });
     }
 
-    async function handleChangeDisheImg(event) {
+    async function handleChangeDisheImg(event) {        
         const file = event.target.files[0];        
         setDisheImgFile(file);
     }
+
+    async function handleDelete(event) {
+        event.preventDefault();
+        
+        await api.delete(`/dishes/${params.id}`)
+
+        navigate("/")
+
+    }
+
+    function formatPrice(price) {
+        return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    }
    
-    
     function handleAddIngredient() {
         setIngredients(prevState => [...prevState, newIngredient]);
         setNewIngredient("");   
@@ -81,6 +95,14 @@ export function EditDishe() {
     function handleBack() {
         navigate("/")
     }
+
+    function handleCloseMessage() {
+        setUserMessage("")
+    }
+
+    useEffect(() => {
+        setUserMessage(message)
+    }, [message])
 
 
     useEffect(() => {
@@ -110,11 +132,27 @@ export function EditDishe() {
         fetchDishe();
     }, [])
 
+    useEffect(() => {
+        if (!menuIsOpen) {
+          const content = document.querySelector(".content")
+          content.style.display = "block";
+          return;
+        }
+    
+        const timeoutId = setTimeout(() => {
+            const content = document.querySelector(".content")
+            content.style.display = "none";
+        }, 300);
+    
+        return () => clearTimeout(timeoutId);
+      }, [menuIsOpen]);
+
     return(
         <Container>
             <UserMesssage                     
-                message={message} 
-                isMessage={!!message}
+                message={userMessage} 
+                isMessage={!!userMessage}
+                onClose={handleCloseMessage}
             />
             <SideMenu 
                 menuIsOpen={menuIsOpen}
@@ -211,7 +249,7 @@ export function EditDishe() {
                                 <Input
                                     label="Preço"
                                     type="text"
-                                    placeholder={price && `R$ ${price}` || "R$ 40,00"}
+                                    placeholder={price && `${formatPrice(price)}` || "R$ 40,00"}
                                     id="price"
                                     onChange={(e) => setPrice(e.target.value)}
                                 />
@@ -226,13 +264,14 @@ export function EditDishe() {
 
                         <div className="buttons-wrapper">
                             <Button 
-                                title="Excluir nota"
+                                title="Excluir prato"
                                 color="BACKGROUND_DARK_900"
+                                onClick={(event) => handleDelete(event)}
                             />
                             <Button 
                                 title="Salvar alterações"
                                 color="TINTS_TOMATO_400"
-                                onClick={handleUpdate}
+                                onClick={(event) => handleUpdate(event)}
                             />                            
                         </div>
                     </form>

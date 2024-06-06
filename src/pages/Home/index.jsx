@@ -1,12 +1,12 @@
-import { Container } from "./styles";
-import { Header } from "../../components/Header";
-import { Footer } from "../../components/Footer";
-import { Dishe } from "../../components/Dishe";
-
-import { SideMenu } from "../../components/SideMenu";
 import { useEffect, useState } from "react";
 
+import { Container } from "./styles";
 import homeImg from "../../assets/dishes/homeimg.png";
+
+import { SideMenu } from "../../components/SideMenu";
+import { Header } from "../../components/Header";
+import { Dishe } from "../../components/Dishe";
+import { Footer } from "../../components/Footer";
 
 import { api } from "../../services/api";
 import { useCart } from "../../hooks/clientcart";
@@ -22,11 +22,7 @@ export function Home() {
     const [meals, setMeals] = useState("");
     const [desserts, setDesserts] = useState("");
     const [drinks, setDrinks] = useState("");
-    
-    const [dishes, setDishes] = useState([]); 
-
     const [menuIsOpen, setMenuIsOpen] = useState(false);
-
     const [cart, setCart] = useState([]);
 
     
@@ -57,6 +53,12 @@ export function Home() {
     
     }, [cart]);
 
+    useEffect(() => {
+
+        document.querySelector(".content")
+
+    }, [])
+
     
     useEffect(() => {
         async function dishesWithCategoriesDB() {
@@ -86,7 +88,6 @@ export function Home() {
                 return dishe.categories.some(category => category.type === "bebida") 
             });                     
             
-            setDishes(dishesWithCategories);  
             setAppetizer(fetchAppetizer);  
             setMostRequested(fetchMostRequested);
             setMeals(fetchMeals);
@@ -97,8 +98,23 @@ export function Home() {
         dishesWithCategoriesDB();
     }, [])
 
+    useEffect(() => {
+        if (!menuIsOpen) {
+          const content = document.querySelector(".content")
+          content.style.display = "block";
+          return;
+        }
+    
+        const timeoutId = setTimeout(() => {
+            const content = document.querySelector(".content")
+            content.style.display = "none";
+        }, 300);
+    
+        return () => clearTimeout(timeoutId);
+      }, [menuIsOpen]);
+
     return (
-        <Container>
+        <Container data-hide-home={!menuIsOpen}>
             <SideMenu 
                 menuIsOpen={menuIsOpen}
                 onCloseMenu={() => setMenuIsOpen(false)}   

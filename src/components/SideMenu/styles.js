@@ -4,6 +4,8 @@ import styled from "styled-components";
 export const Container = styled.aside`
     height: 100vh;
     width: 100%;
+
+    
     
     position: absolute;
     z-index: 1;
@@ -114,14 +116,24 @@ export const Container = styled.aside`
             padding: 1rem;
 
             border-top: 2px solid rgba(6, 94, 124, 0.3); 
+
+            transition: background .5s ease-in-out;
             
             &:nth-of-type(1) {
                 margin-top: 1rem;
             }
+
+            &:hover {
+                background: ${({ theme }) => theme.COLORS.LIGHT_400};
+
+                & > button {
+                    color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_1000};
+                }
+            }
             
             span {
                 color: ${({ theme }) => theme.COLORS.LIGHT_300};
-                font-size: 2.2rem;          
+                font-size: 2.2rem; 
             }
 
             button {
@@ -129,6 +141,7 @@ export const Container = styled.aside`
                 font-size: 2.2rem;          
                 background-color: transparent;
                 border: none;
+                transition: color .5s  ease-in-out;
             }
         }
 

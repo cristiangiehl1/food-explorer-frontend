@@ -2,8 +2,7 @@ import { BsFillHexagonFill } from "react-icons/bs";
 import { CiMail } from "react-icons/ci";
 import { IoLockClosed } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 
 import { Container, Header } from "./styles";
 
@@ -20,6 +19,8 @@ export function SignIn() {
 
   const { signIn, message } = useAuth();
 
+  const [userMessage, setUserMessage] = useState("")
+
   function handleSignIn() {
     signIn({ email, password})
   }
@@ -30,11 +31,21 @@ export function SignIn() {
     navigate("/register");
   }
 
+  function handleCloseMessage() {
+    setUserMessage("")
+  }
+
+  useEffect(() => {
+    setUserMessage(message)    
+
+  }, [message])
+
   return (
     <Container>
       <UserMesssage         
-        message={message} 
-        isMessage={!!message}
+        message={userMessage} 
+        isMessage={!!userMessage}
+        onClose={handleCloseMessage}
       />
       <Header>
         <BsFillHexagonFill size={40}/>

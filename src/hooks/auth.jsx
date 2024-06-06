@@ -28,20 +28,19 @@ function AuthProvider({ children }) {
 
                 setTimeout(() => {
                     setMessage("");
-                }, 5900)
+                }, 2000)
             } else {
                 setMessage("Não foi possível logar.");
 
                 setTimeout(() => {
                     setMessage("")
-                }, 5900);
+                }, 2000);
             }
         }
     }
 
     async function signOut() {{
         localStorage.removeItem("@foodexpress:user");
-
         setData({});
     }}
 
@@ -61,7 +60,7 @@ function AuthProvider({ children }) {
             setMessage("Prato atualizado com sucesso.")
             setTimeout(() => {
                 setMessage("");
-            }, 5900)            
+            }, 2000)            
 
         } catch (error) {
             if(error.response) {
@@ -71,14 +70,14 @@ function AuthProvider({ children }) {
 
                 setTimeout(() => {
                     setMessage("");
-                }, 5900)
+                }, 2000)
             } else {
                 setMessage("Não foi possível atualizar o prato.");
                 setError({name: "deu ruim"})
 
                 setTimeout(() => {
                     setMessage("")
-                }, 5900);
+                }, 2000);
             }
         }
     }

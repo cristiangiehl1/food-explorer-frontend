@@ -33,12 +33,13 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
         }, 100);
     }
 
-    function handleProfile() {
-        navigate("/users");       
-    }
+    // function handleProfile() {
+    //     navigate("/users");       
+    // }
 
     function handleFavorites() {
         navigate("/favorites");  
+        onCloseMenu();
     }
 
     function handleSignOut() {
@@ -48,20 +49,22 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
 
     function handleNew() {
         navigate("/dishes");
-    }
-
-    function formatPrice(price) {
-        const formattedPrice = parseFloat(price).toFixed(2);
-        return formattedPrice.replace('.', ',');
+        onCloseMenu();
     }
 
     function hadleBuyHistoric() {
         navigate("/historic")
+        onCloseMenu();
     }
 
     async function handleNavDetails(id) {
         navigate(`/details/${id}`);
         onCloseMenu();
+    }
+
+    function formatPrice(price) {
+        const formattedPrice = parseFloat(price).toFixed(2);
+        return formattedPrice.replace('.', ',');
     }
 
     useEffect(() => {
@@ -77,10 +80,9 @@ export function SideMenu({ menuIsOpen, onCloseMenu}) {
                 setSearchResult(dishesFromIngredientsResponse.data);                  
                 return;
             }
-
+            
             const dishesResponse = await api.get(`/dishes?name=${disheName}`);    
-            setSearchResult(dishesResponse.data);
-                 
+            setSearchResult(dishesResponse.data);      
         }
         handleSearchResult();
 

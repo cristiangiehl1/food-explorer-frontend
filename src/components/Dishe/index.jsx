@@ -27,7 +27,7 @@ export function Dishe({ data, fetchCart, ...rest }) {
     const [isFavorite, setIsFavorite] = useState("");
     const [disheQuantity, setDisheQuantity] = useState(1);
 
-    const avatarUrl = data.image ? `${api.defaults.baseURL}/files/dishes/${data.image}` : dishePlaceholder; 
+    const disheImageURL = data.image ? `${api.defaults.baseURL}/files/dishes/${data.image}` : dishePlaceholder; 
     const navigate = useNavigate();
 
     function navEdit(id) {
@@ -65,7 +65,7 @@ export function Dishe({ data, fetchCart, ...rest }) {
     }    
 
     function editPrice(price) {
-        return price.toFixed(2).replace(".", ",");
+        return price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })
     }
 
     function handleDisheIncrease() {
@@ -108,8 +108,6 @@ export function Dishe({ data, fetchCart, ...rest }) {
     }, [quantity]);
 
 
-
-
     return (
         <Container {...rest}>
             <figure>
@@ -129,7 +127,7 @@ export function Dishe({ data, fetchCart, ...rest }) {
                 </button>
                 <div className="nav-wrapper">
                     <div className="figure-content" onClick={() => handleDetails(data.id)}>
-                        <img src={avatarUrl} alt={data.name} />
+                        <img src={disheImageURL} alt={data.name} />
                         <figcaption>
                             <div className="disheName">
                                 <h2>{data.name} </h2>

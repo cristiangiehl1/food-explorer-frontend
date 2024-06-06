@@ -9,6 +9,7 @@ export const Container = styled.div`
 
     .content {
         display: block;
+        margin-bottom: 2rem;
 
         &[data-hide-details="true"] {
             display: none;
@@ -55,7 +56,7 @@ export const Container = styled.div`
                 align-items: center;
                 justify-content: center;
 
-                margin: 1.6rem 0 0; 
+                margin: 1rem 0 0; 
 
 
                 @media(min-width: 1024px) {
@@ -127,7 +128,7 @@ export const Container = styled.div`
                         gap: 2rem;
                         flex-wrap: wrap;
 
-                        margin-bottom: 4rem;
+                        margin-bottom: 2rem;
 
                         @media(min-width: 1024px) {                      
                            margin-bottom: 4.8rem;                

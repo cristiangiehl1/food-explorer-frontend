@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
+
+
 export const Container = styled.div`
+    
 
     .content {
-        &[data-hide-home="false"] {
-            display: none;  
-        }
+        
         
         @media(min-width: 1024px) {
             &[data-hide-home="false"] {
@@ -25,7 +26,7 @@ export const Container = styled.div`
 
             margin: 6.2rem 9vw;
 
-
+            
             img {
                 position: absolute;
                 bottom: 0;
@@ -65,11 +66,7 @@ export const Container = styled.div`
                     font-weight: 500;
                     margin-bottom: .3rem;
 
-                    @media(max-width: 321px) {           
-                        
-                    }
-
-                    @media(min-width: 768px) {           
+                    @media(min-width: 620px) {           
                         font-size: 2rem;
                     }
 
@@ -79,11 +76,14 @@ export const Container = styled.div`
                 }
 
                 p {
-                    font-size: .7rem;
-
+                    font-size: .8rem;
                     
                     @media(max-width: 321px) {           
                         font-size: .6rem;
+                    }
+
+                    @media(min-width: 620px) {           
+                        font-size: 1rem;
                     }
 
                     @media(min-width: 768px) {           
@@ -132,7 +132,7 @@ export const Container = styled.div`
                 --delay: 0;
 
                 @media(min-width: 1024px) {
-                    height: 50rem;
+                    height: 55rem;
                 }
 
                 div {                   

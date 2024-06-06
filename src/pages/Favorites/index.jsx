@@ -67,6 +67,21 @@ export function Favorites() {
         fetchFavorites();
     }, [])
 
+    useEffect(() => {
+        if (!menuIsOpen) {
+          const content = document.querySelector(".content")
+          content.style.display = "block";
+          return;
+        }
+    
+        const timeoutId = setTimeout(() => {
+            const content = document.querySelector(".content")
+            content.style.display = "none";
+        }, 300);
+    
+        return () => clearTimeout(timeoutId);
+      }, [menuIsOpen]);
+
     return(
         <Container>
             <SideMenu 
@@ -74,7 +89,7 @@ export function Favorites() {
                 onCloseMenu={() => setMenuIsOpen(false)} 
             />
             <Header onOpenMenu={() => setMenuIsOpen(true)} quantity={cart.length}/>
-            <main className="favorite-main">
+            <main className="favorite-main content">
                 <h1>Meus Favoritos</h1>
                 <section className="favorites-wrapper">
                     {   favorites &&

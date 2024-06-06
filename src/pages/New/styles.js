@@ -3,7 +3,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 
-    > .content {    
+    > .content {   
+        
+        label {
+            font-size: 1.2rem;
+
+            @media(min-width: 1024px) {
+                font-size: 1.6rem;
+            }
+        }
         
         label,
         option,
@@ -11,12 +19,17 @@ export const Container = styled.div`
             gap: 8px; 
             color: ${({ theme }) => theme.COLORS.LIGHT_400};
             font-family: "Roboto", sans-serif;
-            font-size: 1.2rem;
+        }
+
+        select, option {
+            font-size: 1.4rem;
 
             @media(min-width: 1024px) {
                 font-size: 1.6rem;
             }
         }
+
+
 
         input::placeholder {
             font-size: 1.4rem;

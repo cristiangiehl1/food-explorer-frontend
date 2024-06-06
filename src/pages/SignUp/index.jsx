@@ -33,7 +33,7 @@ export function SignUp() {
       setTimeout(() => {
         setUserMessage("");
         
-      }, 5900);
+      }, 2000);
 
       return;
     }  
@@ -64,7 +64,7 @@ export function SignUp() {
         setTimeout(() => {
           setUserMessage("");
           
-        }, 5900);
+        }, 2000);
 
       } else {
         setUserMessage("Não foi possível cadastrar.");
@@ -72,18 +72,18 @@ export function SignUp() {
         setTimeout(() => {
           setUserMessage("");
           
-        }, 5900);
+        }, 2000);
       }
     });  
   }
 
-
-
+  function handleCloseMessage() {
+    setUserMessage("")
+  }
 
   function handleBack() {
     navigate(-1);
   }
-
 
   return (
     <Container>
@@ -92,6 +92,8 @@ export function SignUp() {
         background ={bgColor}
         message={userMessage} 
         isMessage={!!userMessage}
+        onClose={handleCloseMessage}
+
       />
       <Header>        
         <BsFillHexagonFill size={40}/>
