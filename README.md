@@ -17,7 +17,7 @@
 <h2 align="center"> 📄 Pages </h2>
 
 ### Navigation (available on all pages)
-- edit dish (admin), new (admin), favorites (customer), details.
+- edit dish (admin), new (admin), favorites (customer), details, purchase history.
 - Back to home.
 - Log out.
 
