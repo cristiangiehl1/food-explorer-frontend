@@ -248,7 +248,6 @@ export function Cart() {
                                 {
                                     latestCart.length > 0 &&
                                     <div className="onyly-latest-purchase">
-                                        <h2> Seu pedido está em análise =)</h2>
                                         <span>Status da compra: {latestPurchase.status}</span>
                                     </div>
                                 }
