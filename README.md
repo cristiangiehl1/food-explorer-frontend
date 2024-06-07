@@ -73,7 +73,7 @@ This project was developed using the following libraries:
 
 [Food Explorer Web](https://food-explorer-web.vercel.app/)
 
-=> You can try it out the admin role typing: 
+=> You can try out the admin role by typing:
 - email: admin@email.com
 - password: 123
 
